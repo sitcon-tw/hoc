@@ -1,1 +1,69 @@
-@import "tailwindcss";
+@import "tailwindcss/theme.css";
+@import "tailwindcss/utilities.css";
+
+/* Design Tokens & CSS Variables */
+:root {
+  /* Colors - Official SITCON Brand Colors */
+  --color-primary: #77B55A;
+  --color-primary-dark: #6AA34E;
+  --color-primary-light: #8BC373;
+  --color-secondary: #5A9D7F;
+  --color-accent: #95C683;
+
+  /* Grayscale */
+  --color-bg: #FFFFFF;
+  --color-bg-alt: #F7F9FC;
+  --color-text: #2C3E50;
+  --color-text-light: #6C757D;
+  --color-border: #E0E6ED;
+
+  /* Spacing */
+  --spacing-section: 6rem;
+  --spacing-container: 1.5rem;
+
+  /* Typography */
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+}
+
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-family);
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Container Utility */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-container);
+}
+
+/* Section Spacing */
+.section {
+  padding: var(--spacing-section) 0;
+}
+
+/* Smooth Transitions */
+a, button {
+  transition: all 0.3s ease;
+}
+
+/* Focus States */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}

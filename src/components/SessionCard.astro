@@ -1,0 +1,153 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  title: string;
+  date: string;
+  time: string;
+  location: string;
+  capacity: number;
+  registered: number;
+  instructor?: string;
+  description?: string;
+  level?: 'beginner' | 'intermediate' | 'advanced';
+  tags?: string[];
+}
+
+const {
+  title,
+  date,
+  time,
+  location,
+  capacity,
+  registered,
+  instructor,
+  description,
+  level = 'beginner',
+  tags = []
+} = Astro.props;
+
+const availableSpots = capacity - registered;
+const isAlmostFull = availableSpots <= capacity * 0.2;
+const isFull = availableSpots <= 0;
+
+const levelColors = {
+  beginner: 'bg-green-100 text-green-700',
+  intermediate: 'bg-yellow-100 text-yellow-700',
+  advanced: 'bg-red-100 text-red-700'
+};
+
+const levelLabels = {
+  beginner: '初學者',
+  intermediate: '中階',
+  advanced: '進階'
+};
+---
+
+<div class="session-card bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl hover:scale-[1.02] transition-all duration-300">
+  <!-- Card Header -->
+  <div class="p-6 border-b border-gray-100">
+    <div class="flex items-start justify-between gap-4 mb-3">
+      <h3 class="text-2xl font-bold text-gray-900 flex-1">{title}</h3>
+      <span class={`px-3 py-1 rounded-full text-xs font-semibold ${levelColors[level]}`}>
+        {levelLabels[level]}
+      </span>
+    </div>
+
+    {description && (
+      <p class="text-gray-600 leading-relaxed">{description}</p>
+    )}
+  </div>
+
+  <!-- Card Body -->
+  <div class="p-6 space-y-4">
+    <!-- Date & Time -->
+    <div class="flex items-center gap-3 text-gray-700">
+      <Icon name="lucide:calendar" class="w-5 h-5 text-[var(--color-primary)]" />
+      <span class="font-medium">{date}</span>
+      <span class="text-gray-400">|</span>
+      <Icon name="lucide:clock" class="w-5 h-5 text-[var(--color-primary)]" />
+      <span>{time}</span>
+    </div>
+
+    <!-- Location -->
+    <div class="flex items-center gap-3 text-gray-700">
+      <Icon name="lucide:map-pin" class="w-5 h-5 text-[var(--color-primary)]" />
+      <span>{location}</span>
+    </div>
+
+    <!-- Instructor -->
+    {instructor && (
+      <div class="flex items-center gap-3 text-gray-700">
+        <Icon name="lucide:user" class="w-5 h-5 text-[var(--color-primary)]" />
+        <span>講師：{instructor}</span>
+      </div>
+    )}
+
+    <!-- Tags -->
+    {tags.length > 0 && (
+      <div class="flex flex-wrap gap-2 pt-2">
+        {tags.map(tag => (
+          <span class="px-3 py-1 bg-green-50 text-[var(--color-primary)] text-xs font-medium rounded-full">
+            #{tag}
+          </span>
+        ))}
+      </div>
+    )}
+
+    <!-- Capacity -->
+    <div class="pt-4 border-t border-gray-100">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-sm text-gray-600">報名狀況</span>
+        <span class="text-sm font-semibold text-gray-900">
+          {registered} / {capacity} 人
+        </span>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+        <div
+          class={`h-full transition-all duration-500 ${
+            isFull ? 'bg-red-500' : isAlmostFull ? 'bg-yellow-500' : 'bg-[var(--color-primary)]'
+          }`}
+          style={`width: ${Math.min((registered / capacity) * 100, 100)}%`}
+        ></div>
+      </div>
+
+      {isAlmostFull && !isFull && (
+        <p class="text-xs text-yellow-600 mt-2 flex items-center gap-1">
+          <Icon name="lucide:alert-circle" class="w-4 h-4" />
+          名額即將額滿！
+        </p>
+      )}
+
+      {isFull && (
+        <p class="text-xs text-red-600 mt-2 flex items-center gap-1">
+          <Icon name="lucide:x-circle" class="w-4 h-4" />
+          名額已滿
+        </p>
+      )}
+    </div>
+  </div>
+
+  <!-- Card Footer -->
+  <div class="p-6 bg-gray-50 border-t border-gray-100">
+    <button
+      disabled={isFull}
+      class={`w-full py-3 px-6 rounded-full font-bold transition-all duration-300 ${
+        isFull
+          ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+          : 'bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-dark)] hover:shadow-lg'
+      }`}
+    >
+      {isFull ? '已額滿' : '立即報名'}
+    </button>
+  </div>
+</div>
+
+<style>
+  .session-card {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+</style>

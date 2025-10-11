@@ -1,6 +1,28 @@
 ---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import AboutEvent from "../components/AboutEvent.astro";
+import AboutSITCON from "../components/AboutSITCON.astro";
+import AboutHoC from "../components/AboutHoC.astro";
+import SessionsList from "../components/SessionsList.astro";
+import CTASection from "../components/CTASection.astro";
+import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 ---
-<h1 class="text-3xl font-bold underline">
-  Hello world!
-</h1>
+
+<Layout
+	title="SITCON Hour of Code 2025 | 人人都能寫程式"
+	description="學生計算機年會（SITCON）主辦的 Hour of Code 程式教育活動。無論年齡大小，從 4 歲到 104 歲，都可以報名參與，動手寫程式、理解資訊科技、用創意解決生活中的問題並培養邏輯思維。"
+>
+	<Header />
+	<main>
+		<Hero />
+		<AboutEvent />
+		<AboutSITCON />
+		<AboutHoC />
+		<SessionsList />
+		<CTASection />
+	</main>
+	<Footer />
+</Layout>

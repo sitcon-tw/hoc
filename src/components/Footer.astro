@@ -1,0 +1,190 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<footer class="bg-gray-900 text-gray-300">
+  <!-- Main Footer -->
+  <div class="container mx-auto px-6 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+      <!-- About Column -->
+      <div>
+        <h3 class="text-white text-xl font-bold mb-4">SITCON HoC</h3>
+        <p class="text-gray-400 leading-relaxed mb-4">
+          學生計算機年會主辦<br />
+          Hour of Code 程式教育活動
+        </p>
+        <div class="flex gap-4">
+          <a
+            href="https://www.facebook.com/SITCONtw"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[var(--color-primary)] transition-colors"
+            aria-label="Facebook"
+          >
+            <Icon name="lucide:facebook" class="w-5 h-5" />
+          </a>
+          <a
+            href="https://twitter.com/sitcontw"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[var(--color-primary)] transition-colors"
+            aria-label="Twitter"
+          >
+            <Icon name="lucide:twitter" class="w-5 h-5" />
+          </a>
+          <a
+            href="https://www.instagram.com/sitcon.tw/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[var(--color-primary)] transition-colors"
+            aria-label="Instagram"
+          >
+            <Icon name="lucide:instagram" class="w-5 h-5" />
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h3 class="text-white text-lg font-bold mb-4">快速連結</h3>
+        <ul class="space-y-3">
+          <li>
+            <a href="#about" class="hover:text-[var(--color-primary)] transition-colors">關於活動</a>
+          </li>
+          <li>
+            <a href="#sessions" class="hover:text-[var(--color-primary)] transition-colors">活動場次</a>
+          </li>
+          <li>
+            <a href="#signup" class="hover:text-[var(--color-primary)] transition-colors">立即報名</a>
+          </li>
+          <li>
+            <a href="#volunteer" class="hover:text-[var(--color-primary)] transition-colors">志工招募</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Resources -->
+      <div>
+        <h3 class="text-white text-lg font-bold mb-4">相關資源</h3>
+        <ul class="space-y-3">
+          <li>
+            <a
+              href="https://sitcon.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hover:text-[var(--color-primary)] transition-colors flex items-center gap-2"
+            >
+              <span>SITCON 官網</span>
+              <Icon name="lucide:external-link" class="w-4 h-4" />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://sitcon.org/about.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hover:text-[var(--color-primary)] transition-colors flex items-center gap-2"
+            >
+              <span>關於 SITCON</span>
+              <Icon name="lucide:external-link" class="w-4 h-4" />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://hourofcode.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hover:text-[var(--color-primary)] transition-colors flex items-center gap-2"
+            >
+              <span>Hour of Code</span>
+              <Icon name="lucide:external-link" class="w-4 h-4" />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://ocf.tw/p/sitcon/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hover:text-[var(--color-primary)] transition-colors flex items-center gap-2"
+            >
+              <span>OCF 專案</span>
+              <Icon name="lucide:external-link" class="w-4 h-4" />
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h3 class="text-white text-lg font-bold mb-4">聯絡我們</h3>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-2">
+            <Icon name="lucide:mail" class="w-5 h-5 text-[var(--color-primary)] flex-shrink-0 mt-0.5" />
+            <a
+              href="mailto:contact@sitcon.org"
+              class="hover:text-[var(--color-primary)] transition-colors"
+            >
+              contact@sitcon.org
+            </a>
+          </li>
+          <li class="flex items-start gap-2">
+            <Icon name="lucide:map-pin" class="w-5 h-5 text-[var(--color-primary)] flex-shrink-0 mt-0.5" />
+            <span>台灣</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="border-t border-gray-800 pt-8">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+        <!-- Copyright -->
+        <div class="text-sm text-gray-500 text-center md:text-left">
+          <p>&copy; 2025 SITCON Hour of Code. All rights reserved.</p>
+          <p class="mt-1">
+            Made with
+            <Icon name="lucide:heart" class="inline w-4 h-4 text-red-500" />
+            by <a href="https://sitcon.org" class="hover:text-[var(--color-primary)] transition-colors">SITCON</a>
+          </p>
+        </div>
+
+        <!-- Legal Links -->
+        <div class="flex gap-6 text-sm">
+          <a href="/privacy" class="hover:text-[var(--color-primary)] transition-colors">隱私權政策</a>
+          <a href="/terms" class="hover:text-[var(--color-primary)] transition-colors">使用條款</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to Top Button -->
+  <button
+    id="back-to-top"
+    class="fixed bottom-8 right-8 w-12 h-12 bg-[var(--color-primary)] text-white rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 hover:bg-[var(--color-primary-dark)] hover:scale-110 z-40"
+    aria-label="Back to top"
+  >
+    <Icon name="lucide:arrow-up" class="w-6 h-6" />
+  </button>
+</footer>
+
+<script>
+  // Back to top button functionality
+  const backToTopButton = document.getElementById('back-to-top');
+
+  window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+      backToTopButton?.classList.remove('opacity-0', 'pointer-events-none');
+      backToTopButton?.classList.add('opacity-100', 'pointer-events-auto');
+    } else {
+      backToTopButton?.classList.add('opacity-0', 'pointer-events-none');
+      backToTopButton?.classList.remove('opacity-100', 'pointer-events-auto');
+    }
+  });
+
+  backToTopButton?.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+</script>

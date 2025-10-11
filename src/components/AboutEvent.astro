@@ -1,0 +1,86 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<section class="section bg-white" id="about">
+  <div class="container mx-auto px-6">
+    <div class="max-w-5xl mx-auto">
+      <!-- Section Title -->
+      <div class="text-center mb-16 fade-in">
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">關於 Hour of Code</h2>
+        <div class="w-24 h-1 bg-[var(--color-primary)] mx-auto rounded-full"></div>
+      </div>
+
+      <!-- Event Origin -->
+      <div class="mb-16 fade-in">
+        <div class="flex items-start gap-4 mb-6">
+          <div class="flex-shrink-0 w-12 h-12 bg-[var(--color-primary)]/10 rounded-full flex items-center justify-center">
+            <Icon name="lucide:history" class="w-6 h-6 text-[var(--color-primary)]" />
+          </div>
+          <div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">活動緣起</h3>
+          </div>
+        </div>
+        <div class="pl-16">
+          <p class="text-lg text-gray-700 leading-relaxed mb-4">
+            為紀念歷史上第一位女性程式設計師 Grace Hopper（生日為 12 月 9 日），國際社群將每年 12 月第 2 週訂為「<strong class="text-[var(--color-primary)]">計算機科學教育週</strong>」（CSEdWeek）。此舉旨在彰顯她對電腦科學的重要貢獻，並藉此推廣程式設計與資訊科技教育。
+          </p>
+          <p class="text-lg text-gray-700 leading-relaxed">
+            無論年齡大小，從 <strong>4 歲到 104 歲</strong>，都可以報名參與其中，動手寫程式、理解資訊科技、用創意解決生活中的問題並培養邏輯思維。
+          </p>
+        </div>
+      </div>
+
+      <!-- Event Purpose -->
+      <div class="mb-16 fade-in">
+        <div class="flex items-start gap-4 mb-6">
+          <div class="flex-shrink-0 w-12 h-12 bg-[var(--color-primary)]/10 rounded-full flex items-center justify-center">
+            <Icon name="lucide:target" class="w-6 h-6 text-[var(--color-primary)]" />
+          </div>
+          <div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">活動宗旨</h3>
+          </div>
+        </div>
+        <div class="pl-16">
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3">
+              <Icon name="lucide:check-circle" class="w-6 h-6 text-[var(--color-primary)] flex-shrink-0 mt-1" />
+              <span class="text-lg text-gray-700">普及計算機科學的基礎知識，提升社會對資訊科技的認知</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <Icon name="lucide:check-circle" class="w-6 h-6 text-[var(--color-primary)] flex-shrink-0 mt-1" />
+              <span class="text-lg text-gray-700">透過簡單易懂的課程或活動，啟發參與者對程式設計的興趣</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <Icon name="lucide:check-circle" class="w-6 h-6 text-[var(--color-primary)] flex-shrink-0 mt-1" />
+              <span class="text-lg text-gray-700">促進多元參與，鼓勵不同年齡層投入科技學習，建立全民科技素養</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Stats/Highlights -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 fade-in">
+        <div class="text-center p-8 bg-gradient-to-br from-green-50 to-white rounded-2xl border border-green-100">
+          <div class="text-4xl font-bold text-[var(--color-primary)] mb-2">180+</div>
+          <div class="text-gray-600">參與國家</div>
+        </div>
+        <div class="text-center p-8 bg-gradient-to-br from-green-50 to-white rounded-2xl border border-green-100">
+          <div class="text-4xl font-bold text-[var(--color-primary)] mb-2">數億</div>
+          <div class="text-gray-600">參與學生</div>
+        </div>
+        <div class="text-center p-8 bg-gradient-to-br from-green-50 to-white rounded-2xl border border-green-100">
+          <div class="text-4xl font-bold text-[var(--color-primary)] mb-2">1 小時</div>
+          <div class="text-gray-600">程式體驗</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+</style>

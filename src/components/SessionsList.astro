@@ -1,0 +1,120 @@
+---
+import { Icon } from "astro-icon/components";
+import SessionCard from "./SessionCard.astro";
+
+// Sample session data - can be replaced with actual data from CMS or API
+const sessions = [
+  {
+    title: "Scratch 程式設計入門",
+    date: "2025 年 12 月 8 日（週一）",
+    time: "14:00 - 16:00",
+    location: "台北市信義區資訊中心",
+    capacity: 30,
+    registered: 28,
+    instructor: "陳老師",
+    description: "透過 Scratch 圖形化程式語言，學習程式設計的基本概念，適合完全沒有程式基礎的學員。",
+    level: "beginner" as const,
+    tags: ["Scratch", "圖形化程式", "遊戲設計"]
+  },
+  {
+    title: "Python 基礎程式設計",
+    date: "2025 年 12 月 9 日（週二）",
+    time: "10:00 - 12:00",
+    location: "新竹科學園區研發中心",
+    capacity: 25,
+    registered: 15,
+    instructor: "李老師",
+    description: "學習 Python 程式語言的基礎語法，並透過實作小專案來理解程式設計的概念。",
+    level: "beginner" as const,
+    tags: ["Python", "程式語言", "實作"]
+  },
+  {
+    title: "網頁設計入門",
+    date: "2025 年 12 月 10 日（週三）",
+    time: "14:00 - 16:00",
+    location: "台中市教育中心",
+    capacity: 20,
+    registered: 12,
+    instructor: "王老師",
+    description: "學習 HTML、CSS 基礎，打造屬於自己的第一個網頁。",
+    level: "beginner" as const,
+    tags: ["HTML", "CSS", "網頁設計"]
+  },
+  {
+    title: "App Inventor 手機應用程式開發",
+    date: "2025 年 12 月 11 日（週四）",
+    time: "10:00 - 12:00",
+    location: "高雄市軟體科技園區",
+    capacity: 25,
+    registered: 20,
+    instructor: "林老師",
+    description: "使用 App Inventor 開發簡單的 Android 應用程式，體驗行動應用程式開發的樂趣。",
+    level: "intermediate" as const,
+    tags: ["App Inventor", "手機應用", "Android"]
+  }
+];
+---
+
+<section class="section bg-gradient-to-br from-gray-50 to-white" id="sessions">
+  <div class="container mx-auto px-6">
+    <div class="max-w-7xl mx-auto">
+      <!-- Section Header -->
+      <div class="text-center mb-16 fade-in">
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">活動場次</h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto mb-6">
+          選擇適合你的場次，開始你的程式學習之旅
+        </p>
+        <div class="w-24 h-1 bg-[var(--color-primary)] mx-auto rounded-full"></div>
+      </div>
+
+      <!-- Filter/Sort Options (placeholder for future enhancement) -->
+      <div class="flex flex-wrap gap-4 justify-center mb-12 fade-in">
+        <button class="px-6 py-2 bg-[var(--color-primary)] text-white rounded-full font-medium hover:bg-[var(--color-primary-dark)] transition-colors">
+          全部場次
+        </button>
+        <button class="px-6 py-2 bg-white text-gray-700 rounded-full font-medium hover:bg-gray-50 border border-gray-200 transition-colors">
+          初學者
+        </button>
+        <button class="px-6 py-2 bg-white text-gray-700 rounded-full font-medium hover:bg-gray-50 border border-gray-200 transition-colors">
+          中階
+        </button>
+        <button class="px-6 py-2 bg-white text-gray-700 rounded-full font-medium hover:bg-gray-50 border border-gray-200 transition-colors">
+          進階
+        </button>
+      </div>
+
+      <!-- Sessions Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+        {sessions.map(session => (
+          <SessionCard {...session} />
+        ))}
+      </div>
+
+      <!-- Empty State (shown when no sessions match filter) -->
+      <!-- <div class="text-center py-16 hidden">
+        <Icon name="lucide:calendar-remove" class="w-24 h-24 text-gray-300 mx-auto mb-4" />
+        <h3 class="text-2xl font-bold text-gray-400 mb-2">目前沒有符合的場次</h3>
+        <p class="text-gray-500">請嘗試其他篩選條件</p>
+      </div> -->
+
+      <!-- More Sessions CTA -->
+      <div class="text-center fade-in">
+        <div class="inline-flex items-center gap-2 px-6 py-3 bg-green-50 text-[var(--color-primary)] rounded-full font-medium mb-4">
+          <Icon name="lucide:info" class="w-5 h-5" />
+          <span>更多場次陸續公布中</span>
+        </div>
+        <p class="text-gray-600">
+          想要收到最新活動通知？
+          <a href="#signup" class="text-[var(--color-primary)] font-semibold hover:underline">立即訂閱</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+</style>
