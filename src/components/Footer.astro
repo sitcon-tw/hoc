@@ -66,6 +66,11 @@ import qrcode from "@assets/img/qrcode.webp";
 					</div>
 				</div>
 
+				<!-- Mobile-only sitcon brand placed after social icons so it appears at the bottom on small screens -->
+				<div class="sitcon-brand-mobile" aria-hidden="true">
+					<span class="conference-title">學生計算機年會<br />Students' Information Technology Conference</span>
+				</div>
+
 
 			</div>
 		</div>
@@ -157,6 +162,13 @@ import qrcode from "@assets/img/qrcode.webp";
 		gap: 2rem;
 	}
 
+	/* Mobile-only duplicate of the conference title; hidden by default */
+	.sitcon-brand-mobile {
+		display: none;
+		color: #24313a;
+		font-weight: bold;
+	}
+
 	.social-section {
 		margin-bottom: 20px;
 	}
@@ -204,6 +216,18 @@ import qrcode from "@assets/img/qrcode.webp";
 		.footer-content {
 			grid-template-columns: 1fr;
 			gap: 2rem;
+		}
+
+		/* On small screens move the sitcon brand to the bottom and show it */
+		.sitcon-brand-mobile {
+			display: block;
+			order: 99; /* ensure it visually sits after other footer-right content */
+			margin-top: 0.5rem;
+		}
+
+		/* Hide the left-column conference title on small screens to avoid duplication */
+		.footer-left .conference-title {
+			display: none;
 		}
 
 		.collaboration-title {
