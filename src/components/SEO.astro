@@ -1,0 +1,68 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  pathname?: string;
+  publishedAt?: string;
+  modifiedAt?: string;
+  tags?: string[];
+  locale?: string;
+}
+
+const {
+  title,
+  description,
+  image = '/og-image.jpg',
+  pathname = '/',
+  publishedAt,
+  modifiedAt,
+  tags = [],
+  locale = 'zh_TW',
+} = Astro.props as Props;
+
+const siteBase = Astro.site ? Astro.site.href.replace(/\/$/, '') : 'https://sitcon.org/2025-hoc';
+const url = new URL(pathname, siteBase).toString();
+const imageUrl = image.startsWith('http') ? image : new URL(image, siteBase).toString();
+const fullTitle = title;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  'url': url,
+  'inLanguage': locale.replace('_', '-'),
+  'name': fullTitle,
+  'description': description,
+};
+
+---
+
+<title>{fullTitle}</title>
+<meta name="title" content={fullTitle} />
+{description ? <meta name="description" content={description} /> : null}
+<link rel="canonical" href={url} />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={url} />
+<meta property="og:title" content={fullTitle} />
+{description ? <meta property="og:description" content={description} /> : null}
+<meta property="og:image" content={imageUrl} />
+<meta property="og:site_name" content="SITCON Hour of Code" />
+<meta property="og:locale" content={locale} />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@sitcontw" />
+<meta name="twitter:title" content={fullTitle} />
+{description ? <meta name="twitter:description" content={description} /> : null}
+<meta name="twitter:image" content={imageUrl} />
+
+<!-- Misc -->
+<meta name="robots" content="index, follow" />
+<meta name="author" content="SITCON 學生計算機年會" />
+{tags.length ? <meta name="keywords" content={tags.join(', ')} /> : null}
+
+<script type="application/ld+json">
+  {JSON.stringify(jsonLd)}
+</script>

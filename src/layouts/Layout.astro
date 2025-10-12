@@ -1,19 +1,21 @@
 ---
 interface Props {
-	title?: string;
-	description?: string;
-	image?: string;
+  title?: string;
+  description?: string;
+  image?: string;
 }
 
+import SEO from "../components/SEO.astro";
+
 const {
-	title = 'SITCON Hour of Code 2025 | 人人都能寫程式',
-	description = '學生計算機年會（SITCON）主辦的 Hour of Code 程式教育活動。無論年齡大小，從 4 歲到 104 歲，都可以報名參與，動手寫程式、理解資訊科技、用創意解決生活中的問題並培養邏輯思維。',
-	image = '/og-image.jpg'
+  title = 'SITCON Hour of Code 2025 | 人人都能寫程式',
+  description = '學生計算機年會（SITCON）主辦的 Hour of Code 程式教育活動。無論年齡大小，從 4 歲到 104 歲，都可以報名參與，動手寫程式、理解資訊科技、用創意解決生活中的問題並培養邏輯思維。',
+  image = '/og-image.jpg'
 } = Astro.props;
 
 const canonicalURL = Astro.site
-	? new URL(Astro.url.pathname, Astro.site)
-	: Astro.url;
+  ? new URL(Astro.url.pathname, Astro.site)
+  : Astro.url;
 ---
 
 <!doctype html>
@@ -24,40 +26,19 @@ const canonicalURL = Astro.site
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 
-		<!-- Primary Meta Tags -->
-		<title>{title}</title>
-		<meta name="title" content={title} />
-		<meta name="description" content={description} />
-		<link rel="canonical" href={canonicalURL} />
-
-		<!-- Open Graph / Facebook -->
-		<meta property="og:type" content="website" />
-		<meta property="og:url" content={canonicalURL} />
-		<meta property="og:title" content={title} />
-		<meta property="og:description" content={description} />
-		<meta property="og:image" content={new URL(image, Astro.url)} />
-		<meta property="og:site_name" content="SITCON Hour of Code" />
-		<meta property="og:locale" content="zh_TW" />
-
-		<!-- Twitter -->
-		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:url" content={canonicalURL} />
-		<meta property="twitter:title" content={title} />
-		<meta property="twitter:description" content={description} />
-		<meta property="twitter:image" content={new URL(image, Astro.url)} />
-		<meta name="twitter:site" content="@sitcontw" />
-
-		<!-- Additional SEO -->
-		<meta name="keywords" content="SITCON, Hour of Code, 程式教育, 計算機科學, 程式設計, 學生, 教育, 台灣, 免費課程" />
-		<meta name="author" content="SITCON 學生計算機年會" />
-		<meta name="robots" content="index, follow" />
-
-		<!-- Theme Color -->
+		<!-- keep basic head essentials and fonts, delegate meta tags to SEO component -->
 		<meta name="theme-color" content="#00d959" />
 		<meta name="msapplication-TileColor" content="#00d959" />
 
 		<!-- Fonts -->
 		<link href="https://font.emtech.cc/css/LINESeedTW" rel="stylesheet" />
+
+		<SEO
+			title={title}
+			description={description}
+			image={image}
+			pathname={Astro.url.pathname}
+		/>
 	</head>
 	<body>
 		<slot />
