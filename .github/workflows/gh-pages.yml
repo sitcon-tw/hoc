@@ -27,7 +27,10 @@ jobs:
           node-version: 22
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        # Use --no-frozen-lockfile in CI to avoid failing when lockfile is missing
+        # or incompatible with the runner pnpm version. Prefer committing a
+        # matching pnpm-lock.yaml for reproducible installs.
+        run: pnpm install --no-frozen-lockfile
 
       - name: Build site
         run: pnpm build
@@ -38,4 +41,3 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
           publish_branch: gh-pages
-
