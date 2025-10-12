@@ -7,6 +7,7 @@ interface Props {
   date: string;
   time: string;
   location: string;
+  address?: string;
   description?: string;
   locationUrl?: string;
   city?: string;
@@ -33,6 +34,7 @@ const {
   endDate,
   startTime,
   endTime,
+  address,
   recruitUrl,
   registerUrl,
   telegramUrl,
@@ -87,7 +89,10 @@ const displayRegistrationEnd = registrationEnd ? formatDate(registrationEnd) : '
         <!-- Location -->
         <div class="info-item">
           <Icon name="lucide:map-pin" class="info-icon" />
-          <span class="info-text">{location}</span>
+          <div class="info-text">
+            <div>{location}</div>
+            {address && <div class="info-time-secondary">{address}</div>}
+          </div>
         </div>
 
         <!-- Date & Time -->
