@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://sitcon.org/2025-hoc/sitemap.xml
+Sitemap: https://sitcon.org/hoc/sitemap.xml
 Host: sitcon.org

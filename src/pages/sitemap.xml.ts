@@ -1,6 +1,8 @@
 import type { APIRoute } from 'astro';
 
-const site = import.meta.env.SITE || 'https://sitcon.org/2025-hoc';
+const siteRoot = (import.meta.env.SITE || 'https://sitcon.org').replace(/\/$/, '');
+const basePath = import.meta.env.BASE_URL || '/hoc/';
+const site = siteRoot + (basePath.startsWith('/') ? basePath : '/' + basePath).replace(/\/$/, '');
 
 const pages = [
   '/',
