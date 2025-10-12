@@ -4,11 +4,11 @@
 /* Design Tokens & CSS Variables */
 :root {
   /* Colors - Official SITCON Brand Colors */
-  --color-primary: #77B55A;
-  --color-primary-dark: #6AA34E;
-  --color-primary-light: #8BC373;
-  --color-secondary: #5A9D7F;
-  --color-accent: #95C683;
+  --color-primary: #00d959;
+  --color-primary-dark: #00c04d;
+  --color-primary-light: #33e377;
+  --color-secondary: #00a843;
+  --color-accent: #66ed95;
 
   /* Grayscale */
   --color-bg: #FFFFFF;
@@ -22,7 +22,7 @@
   --spacing-container: 1.5rem;
 
   /* Typography */
-  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+  --font-family: 'LINESeedTW', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
 }
 
 /* Global Styles */

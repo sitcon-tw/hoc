@@ -11,6 +11,7 @@
   "dependencies": {
     "@iconify-json/lucide": "^1.2.69",
     "@tailwindcss/vite": "^4.1.14",
+    "add-to-calendar-button": "^2.12.9",
     "astro": "^5.14.4",
     "astro-icon": "^1.1.5",
     "gsap": "^3.13.0",

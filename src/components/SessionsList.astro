@@ -6,56 +6,80 @@ import SessionCard from "./SessionCard.astro";
 const sessions = [
   {
     title: "Scratch 程式設計入門",
-    date: "2025 年 12 月 8 日（週一）",
+    date: "2025-12-08T14:00:00.000+08:00",
     time: "14:00 - 16:00",
-    location: "台北市信義區資訊中心",
-    capacity: 30,
-    registered: 28,
-    instructor: "陳老師",
+    location: "國立宜蘭大學",
+    city: "宜蘭",
+    region: "east",
     description: "透過 Scratch 圖形化程式語言，學習程式設計的基本概念，適合完全沒有程式基礎的學員。",
-    level: "beginner" as const,
-    tags: ["Scratch", "圖形化程式", "遊戲設計"]
+    locationUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3623.4357019454537!2d121.74512041267491!3d24.746246177912365!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3467e4e96f9e435d%3A0x7e83b3d5de7ae0d8!2z5ZyL56uL5a6c6Jit5aSn5a24!5e0!3m2!1szh-TW!2stw!4v1760262553962!5m2!1szh-TW!2stw",
+    startDate: "2025-12-08",
+    startTime: "14:00",
+    endTime: "16:00",
+    registrationStart: "2025-11-01T00:00:00.000+08:00",
+    registrationEnd: "2025-12-07T23:59:59.999+08:00",
+    recruitUrl: "https://example.com/recruit",
+    registerUrl: "https://example.com/register",
+    telegramUrl: "https://t.me/your_group"
   },
   {
     title: "Python 基礎程式設計",
-    date: "2025 年 12 月 9 日（週二）",
+    date: "2025-12-09T10:00:00.000+08:00",
     time: "10:00 - 12:00",
     location: "新竹科學園區研發中心",
-    capacity: 25,
-    registered: 15,
-    instructor: "李老師",
+    city: "新竹",
+    region: "north",
     description: "學習 Python 程式語言的基礎語法，並透過實作小專案來理解程式設計的概念。",
-    level: "beginner" as const,
-    tags: ["Python", "程式語言", "實作"]
+    locationUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3622.3456789012345!2d120.99384431500123!3d24.796543843210987!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3468360e456789ab%3A0x1234567890abcdef!2z5paw56u55LqU5a246ZyA5ZyS5Y2A!5e0!3m2!1szh-TW!2stw!4v1234567890123!5m2!1szh-TW!2stw",
+    startDate: "2025-12-09",
+    startTime: "10:00",
+    endTime: "12:00",
+    registrationStart: "2025-11-01T00:00:00.000+08:00",
+    registrationEnd: "2025-12-08T23:59:59.999+08:00",
+    recruitUrl: "https://example.com/recruit",
+    registerUrl: "https://example.com/register",
+    telegramUrl: "https://t.me/your_group"
   },
   {
     title: "網頁設計入門",
-    date: "2025 年 12 月 10 日（週三）",
+    date: "2025-12-10T14:00:00.000+08:00",
     time: "14:00 - 16:00",
     location: "台中市教育中心",
-    capacity: 20,
-    registered: 12,
-    instructor: "王老師",
+    city: "台中",
+    region: "central",
     description: "學習 HTML、CSS 基礎，打造屬於自己的第一個網頁。",
-    level: "beginner" as const,
-    tags: ["HTML", "CSS", "網頁設計"]
+    locationUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3640.1234567890123!2d120.68234561500234!3d24.163456789012345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34693d5f6789abcd%3A0xabcdef1234567890!2z5Y-w5Lit5biC5pWZ6IKy5Lit5b-D!5e0!3m2!1szh-TW!2stw!4v1234567890123!5m2!1szh-TW!2stw",
+    startDate: "2025-12-10",
+    startTime: "14:00",
+    endTime: "16:00",
+    registrationStart: "2025-11-01T00:00:00.000+08:00",
+    registrationEnd: "2025-12-09T23:59:59.999+08:00",
+    recruitUrl: "https://example.com/recruit",
+    registerUrl: "https://example.com/register",
+    telegramUrl: "https://t.me/your_group"
   },
   {
     title: "App Inventor 手機應用程式開發",
-    date: "2025 年 12 月 11 日（週四）",
+    date: "2025-12-11T10:00:00.000+08:00",
     time: "10:00 - 12:00",
     location: "高雄市軟體科技園區",
-    capacity: 25,
-    registered: 20,
-    instructor: "林老師",
+    city: "高雄",
+    region: "south",
     description: "使用 App Inventor 開發簡單的 Android 應用程式，體驗行動應用程式開發的樂趣。",
-    level: "intermediate" as const,
-    tags: ["App Inventor", "手機應用", "Android"]
+    locationUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3681.123456789012!2d120.29012341500345!3d22.623456789012345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e036789abcdef%3A0x123456789abcdef0!2z6auY6ZuE5biC6Lu15buj56eR5oqA5ZyS5Y2A!5e0!3m2!1szh-TW!2stw!4v1234567890123!5m2!1szh-TW!2stw",
+    startDate: "2025-12-11",
+    startTime: "10:00",
+    endTime: "12:00",
+    registrationStart: "2025-11-01T00:00:00.000+08:00",
+    registrationEnd: "2025-12-10T23:59:59.999+08:00",
+    recruitUrl: "https://example.com/recruit",
+    registerUrl: "https://example.com/register",
+    telegramUrl: "https://t.me/your_group"
   }
 ];
 ---
 
-<section class="section bg-gradient-to-br from-gray-50 to-white" id="sessions">
+<section class="section relative z-10" id="sessions" style="background-color: #f1f3fb;">
   <div class="container mx-auto px-6">
     <div class="max-w-7xl mx-auto">
       <!-- Section Header -->
@@ -64,57 +88,187 @@ const sessions = [
         <p class="text-xl text-gray-600 max-w-2xl mx-auto mb-6">
           選擇適合你的場次，開始你的程式學習之旅
         </p>
-        <div class="w-24 h-1 bg-[var(--color-primary)] mx-auto rounded-full"></div>
-      </div>
 
-      <!-- Filter/Sort Options (placeholder for future enhancement) -->
-      <div class="flex flex-wrap gap-4 justify-center mb-12 fade-in">
-        <button class="px-6 py-2 bg-[var(--color-primary)] text-white rounded-full font-medium hover:bg-[var(--color-primary-dark)] transition-colors">
-          全部場次
-        </button>
-        <button class="px-6 py-2 bg-white text-gray-700 rounded-full font-medium hover:bg-gray-50 border border-gray-200 transition-colors">
-          初學者
-        </button>
-        <button class="px-6 py-2 bg-white text-gray-700 rounded-full font-medium hover:bg-gray-50 border border-gray-200 transition-colors">
-          中階
-        </button>
-        <button class="px-6 py-2 bg-white text-gray-700 rounded-full font-medium hover:bg-gray-50 border border-gray-200 transition-colors">
-          進階
-        </button>
-      </div>
-
-      <!-- Sessions Grid -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-        {sessions.map(session => (
-          <SessionCard {...session} />
-        ))}
-      </div>
-
-      <!-- Empty State (shown when no sessions match filter) -->
-      <!-- <div class="text-center py-16 hidden">
-        <Icon name="lucide:calendar-remove" class="w-24 h-24 text-gray-300 mx-auto mb-4" />
-        <h3 class="text-2xl font-bold text-gray-400 mb-2">目前沒有符合的場次</h3>
-        <p class="text-gray-500">請嘗試其他篩選條件</p>
-      </div> -->
-
-      <!-- More Sessions CTA -->
-      <div class="text-center fade-in">
-        <div class="inline-flex items-center gap-2 px-6 py-3 bg-green-50 text-[var(--color-primary)] rounded-full font-medium mb-4">
-          <Icon name="lucide:info" class="w-5 h-5" />
-          <span>更多場次陸續公布中</span>
+        <!-- Region Filter -->
+        <div class="flex justify-center gap-3 mt-8 flex-wrap">
+          <button class="filter-button active" data-region="all">全部</button>
+          <button class="filter-button" data-region="north">北部</button>
+          <button class="filter-button" data-region="central">中部</button>
+          <button class="filter-button" data-region="south">南部</button>
+          <button class="filter-button" data-region="east">東部</button>
         </div>
-        <p class="text-gray-600">
-          想要收到最新活動通知？
-          <a href="#signup" class="text-[var(--color-primary)] font-semibold hover:underline">立即訂閱</a>
-        </p>
+
+        <!-- Location indicator -->
+        <div id="location-indicator" class="mt-6 text-sm text-gray-500 hidden">
+          <Icon name="lucide:map-pin" class="w-4 h-4 inline-block mr-1" />
+          <span id="user-location">正在偵測位置...</span>
+        </div>
+      </div>
+
+      <!-- Sessions List -->
+      <div id="sessions-list" class="flex flex-col gap-6 mb-12 max-w-4xl mx-auto">
+        {sessions.map(session => (
+          <div class="session-wrapper" data-region={session.region}>
+            <SessionCard {...session} />
+          </div>
+        ))}
       </div>
     </div>
   </div>
 </section>
 
+<script>
+  // Region filter functionality
+  const filterButtons = document.querySelectorAll('.filter-button');
+  const sessionWrappers = document.querySelectorAll('.session-wrapper');
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const selectedRegion = button.getAttribute('data-region');
+
+      // Update active state
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      // Filter sessions
+      sessionWrappers.forEach(wrapper => {
+        const sessionRegion = wrapper.getAttribute('data-region');
+
+        if (selectedRegion === 'all' || sessionRegion === selectedRegion) {
+          (wrapper as HTMLElement).style.display = 'block';
+        } else {
+          (wrapper as HTMLElement).style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // City to region mapping for Taiwan
+  const cityToRegionMapping: Record<string, string> = {
+    // North
+    '台北': 'north',
+    '新北': 'north',
+    '基隆': 'north',
+    '新竹': 'north',
+    '桃園': 'north',
+    'Taipei': 'north',
+    'New Taipei': 'north',
+    'Keelung': 'north',
+    'Hsinchu': 'north',
+    'Taoyuan': 'north',
+
+    // Central
+    '台中': 'central',
+    '苗栗': 'central',
+    '彰化': 'central',
+    '南投': 'central',
+    'Taichung': 'central',
+    'Miaoli': 'central',
+    'Changhua': 'central',
+    'Nantou': 'central',
+
+    // South
+    '台南': 'south',
+    '高雄': 'south',
+    '屏東': 'south',
+    '雲林': 'south',
+    '嘉義': 'south',
+    'Tainan': 'south',
+    'Kaohsiung': 'south',
+    'Pingtung': 'south',
+    'Yunlin': 'south',
+    'Chiayi': 'south',
+
+    // East
+    '花蓮': 'east',
+    '宜蘭': 'east',
+    '台東': 'east',
+    'Hualien': 'east',
+    'Yilan': 'east',
+    'Taitung': 'east'
+  };
+
+  // Get user location and auto-select filter
+  async function getUserLocation() {
+    try {
+      // Use ipapi.co - free tier allows 1000 requests/day, no API key needed
+      const response = await fetch('https://ipapi.co/json/');
+      const data = await response.json();
+
+      // Get city name (data.city might be in English, so we'll use region)
+      const userCity = data.city || data.region || '';
+
+      // Show location indicator
+      const locationIndicator = document.getElementById('location-indicator');
+      const userLocationSpan = document.getElementById('user-location');
+
+      if (locationIndicator && userLocationSpan) {
+        locationIndicator.classList.remove('hidden');
+        userLocationSpan.textContent = `您的位置：${userCity || '台灣'}`;
+      }
+
+      // Find matching region
+      let detectedRegion = '';
+      for (const [city, region] of Object.entries(cityToRegionMapping)) {
+        if (userCity.includes(city) || city.includes(userCity)) {
+          detectedRegion = region;
+          break;
+        }
+      }
+
+      // Auto-select the filter button if we detected a region
+      if (detectedRegion) {
+        const filterButton = document.querySelector(`[data-region="${detectedRegion}"]`);
+        if (filterButton) {
+          (filterButton as HTMLButtonElement).click();
+        }
+      }
+
+    } catch (error) {
+      console.log('Unable to detect location:', error);
+      // Fail silently - no location detection is fine
+    }
+  }
+
+  // Run on page load
+  if (typeof window !== 'undefined') {
+    getUserLocation();
+  }
+</script>
+
 <style>
   .fade-in {
     opacity: 0;
     transform: translateY(30px);
+  }
+
+  .filter-button {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    padding: 10px 24px;
+    border-radius: 24px;
+    border: none;
+    background: rgba(0, 0, 0, 0.05);
+    color: #1d1d1f;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .filter-button:hover {
+    background: rgba(0, 0, 0, 0.08);
+  }
+
+  .filter-button.active {
+    background: #06c;
+    color: white;
+  }
+
+  .filter-button.active:hover {
+    background: #0077ed;
+  }
+
+  .session-wrapper {
+    transition: opacity 0.3s ease, transform 0.3s ease;
   }
 </style>

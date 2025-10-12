@@ -1,17 +1,24 @@
 ---
 import { Icon } from "astro-icon/components";
+import 'add-to-calendar-button';
 
 interface Props {
   title: string;
   date: string;
   time: string;
   location: string;
-  capacity: number;
-  registered: number;
-  instructor?: string;
   description?: string;
-  level?: 'beginner' | 'intermediate' | 'advanced';
-  tags?: string[];
+  locationUrl?: string;
+  city?: string;
+  startDate?: string; // Format: YYYY-MM-DD
+  endDate?: string; // Format: YYYY-MM-DD
+  startTime?: string; // Format: HH:MM
+  endTime?: string; // Format: HH:MM
+  recruitUrl?: string; // URL for 工作人員招募
+  registerUrl?: string; // URL for 立即報名
+  telegramUrl?: string; // URL for 加入 Telegram
+  registrationStart?: string; // Registration start date (display format)
+  registrationEnd?: string; // Registration end date (display format)
 }
 
 const {
@@ -19,129 +26,153 @@ const {
   date,
   time,
   location,
-  capacity,
-  registered,
-  instructor,
   description,
-  level = 'beginner',
-  tags = []
+  locationUrl,
+  city,
+  startDate,
+  endDate,
+  startTime,
+  endTime,
+  recruitUrl,
+  registerUrl,
+  telegramUrl,
+  registrationStart,
+  registrationEnd
 } = Astro.props;
 
-const availableSpots = capacity - registered;
-const isAlmostFull = availableSpots <= capacity * 0.2;
-const isFull = availableSpots <= 0;
+// Format RFC 3339 date for display
+function formatDate(dateStr: string): string {
+  const date = new Date(dateStr);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const weekdays = ['日', '一', '二', '三', '四', '五', '六'];
+  const weekday = weekdays[date.getDay()];
 
-const levelColors = {
-  beginner: 'bg-green-100 text-green-700',
-  intermediate: 'bg-yellow-100 text-yellow-700',
-  advanced: 'bg-red-100 text-red-700'
-};
+  return `${year} 年 ${month} 月 ${day} 日（週${weekday}）`;
+}
 
-const levelLabels = {
-  beginner: '初學者',
-  intermediate: '中階',
-  advanced: '進階'
-};
+// Format time from RFC 3339 date
+function formatTime(dateStr: string): string {
+  const date = new Date(dateStr);
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+
+  return `${hours}:${minutes}`;
+}
+
+const displayDate = date ? formatDate(date) : '';
+const displayRegistrationStart = registrationStart ? formatDate(registrationStart) : '';
+const displayRegistrationEnd = registrationEnd ? formatDate(registrationEnd) : '';
 ---
 
-<div class="session-card bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl hover:scale-[1.02] transition-all duration-300">
-  <!-- Card Header -->
-  <div class="p-6 border-b border-gray-100">
-    <div class="flex items-start justify-between gap-4 mb-3">
-      <h3 class="text-2xl font-bold text-gray-900 flex-1">{title}</h3>
-      <span class={`px-3 py-1 rounded-full text-xs font-semibold ${levelColors[level]}`}>
-        {levelLabels[level]}
-      </span>
-    </div>
-
-    {description && (
-      <p class="text-gray-600 leading-relaxed">{description}</p>
-    )}
-  </div>
-
-  <!-- Card Body -->
-  <div class="p-6 space-y-4">
-    <!-- Date & Time -->
-    <div class="flex items-center gap-3 text-gray-700">
-      <Icon name="lucide:calendar" class="w-5 h-5 text-[var(--color-primary)]" />
-      <span class="font-medium">{date}</span>
-      <span class="text-gray-400">|</span>
-      <Icon name="lucide:clock" class="w-5 h-5 text-[var(--color-primary)]" />
-      <span>{time}</span>
-    </div>
-
-    <!-- Location -->
-    <div class="flex items-center gap-3 text-gray-700">
-      <Icon name="lucide:map-pin" class="w-5 h-5 text-[var(--color-primary)]" />
-      <span>{location}</span>
-    </div>
-
-    <!-- Instructor -->
-    {instructor && (
-      <div class="flex items-center gap-3 text-gray-700">
-        <Icon name="lucide:user" class="w-5 h-5 text-[var(--color-primary)]" />
-        <span>講師：{instructor}</span>
-      </div>
-    )}
-
-    <!-- Tags -->
-    {tags.length > 0 && (
-      <div class="flex flex-wrap gap-2 pt-2">
-        {tags.map(tag => (
-          <span class="px-3 py-1 bg-green-50 text-[var(--color-primary)] text-xs font-medium rounded-full">
-            #{tag}
-          </span>
-        ))}
-      </div>
-    )}
-
-    <!-- Capacity -->
-    <div class="pt-4 border-t border-gray-100">
-      <div class="flex items-center justify-between mb-2">
-        <span class="text-sm text-gray-600">報名狀況</span>
-        <span class="text-sm font-semibold text-gray-900">
-          {registered} / {capacity} 人
-        </span>
-      </div>
-
-      <!-- Progress Bar -->
-      <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-        <div
-          class={`h-full transition-all duration-500 ${
-            isFull ? 'bg-red-500' : isAlmostFull ? 'bg-yellow-500' : 'bg-[var(--color-primary)]'
-          }`}
-          style={`width: ${Math.min((registered / capacity) * 100, 100)}%`}
-        ></div>
-      </div>
-
-      {isAlmostFull && !isFull && (
-        <p class="text-xs text-yellow-600 mt-2 flex items-center gap-1">
-          <Icon name="lucide:alert-circle" class="w-4 h-4" />
-          名額即將額滿！
-        </p>
-      )}
-
-      {isFull && (
-        <p class="text-xs text-red-600 mt-2 flex items-center gap-1">
-          <Icon name="lucide:x-circle" class="w-4 h-4" />
-          名額已滿
-        </p>
+<div class="session-card" data-city={city}>
+  <!-- Card Container -->
+  <div class="card-inner">
+    <!-- Title and Description -->
+    <div class="card-header">
+      <h3 class="card-title">{title}</h3>
+      {description && (
+        <p class="card-description">{description}</p>
       )}
     </div>
-  </div>
 
-  <!-- Card Footer -->
-  <div class="p-6 bg-gray-50 border-t border-gray-100">
-    <button
-      disabled={isFull}
-      class={`w-full py-3 px-6 rounded-full font-bold transition-all duration-300 ${
-        isFull
-          ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-          : 'bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-dark)] hover:shadow-lg'
-      }`}
-    >
-      {isFull ? '已額滿' : '立即報名'}
-    </button>
+    <!-- Divider -->
+    <div class="card-divider"></div>
+
+    <!-- Content Grid: Info (left) + Map (right) -->
+    <div class="card-content">
+      <!-- Left: Location and Time Info -->
+      <div class="info-section">
+        <!-- Location -->
+        <div class="info-item">
+          <Icon name="lucide:map-pin" class="info-icon" />
+          <span class="info-text">{location}</span>
+        </div>
+
+        <!-- Date & Time -->
+        <div class="info-item">
+          <Icon name="lucide:clock" class="info-icon" />
+          <div class="info-text">
+            <div>{displayDate}</div>
+            <div class="info-time-secondary">{time}</div>
+          </div>
+        </div>
+
+        <!-- Registration Period -->
+        {registrationStart && registrationEnd && (
+          <div class="info-item">
+            <Icon name="lucide:calendar-check" class="info-icon" />
+            <div class="info-text">
+              <div class="info-label">報名時間</div>
+              <div class="info-time-secondary">{displayRegistrationStart} ~ {displayRegistrationEnd}</div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <!-- Right: Google Maps Embed -->
+      {locationUrl && (
+        <div class="map-section">
+          <iframe
+            src={locationUrl}
+            class="map-embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title={`Map of ${location}`}
+          ></iframe>
+        </div>
+      )}
+    </div>
+
+    <!-- Action Buttons Section -->
+    <div class="card-actions">
+      <!-- Add to Calendar Button -->
+      {startDate && startTime && (
+        <div class="calendar-button-wrapper">
+          <add-to-calendar-button
+            name={title}
+            description={description || ''}
+            startDate={startDate}
+            endDate={endDate || startDate}
+            startTime={startTime}
+            endTime={endTime || startTime}
+            location={location}
+            options="'Apple','Google','iCal','Outlook.com','Yahoo'"
+            timeZone="Asia/Taipei"
+            lightMode="bodyScheme"
+            language="zh-TW"
+            size="3"
+            buttonStyle="round"
+            listStyle="overlay"
+          ></add-to-calendar-button>
+        </div>
+      )}
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        {recruitUrl && (
+          <a href={recruitUrl} class="action-button action-button-secondary" target="_blank" rel="noopener noreferrer">
+            <Icon name="lucide:users" class="button-icon" />
+            <span>助教招募</span>
+          </a>
+        )}
+
+        {registerUrl && (
+          <a href={registerUrl} class="action-button action-button-primary" target="_blank" rel="noopener noreferrer">
+            <Icon name="lucide:user-plus" class="button-icon" />
+            <span>立即報名</span>
+          </a>
+        )}
+
+        {telegramUrl && (
+          <a href={telegramUrl} class="action-button action-button-telegram" target="_blank" rel="noopener noreferrer">
+            <Icon name="lucide:send" class="button-icon" />
+            <span>加入 Telegram</span>
+          </a>
+        )}
+      </div>
+    </div>
   </div>
 </div>
 
@@ -149,5 +180,241 @@ const levelLabels = {
   .session-card {
     opacity: 0;
     transform: translateY(30px);
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .card-inner {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 16px;
+    border: 0.5px solid rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+  }
+
+
+  .card-header {
+    padding: 32px 32px 24px 32px;
+  }
+
+  .card-title {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: #1d1d1f;
+    margin: 0 0 12px 0;
+  }
+
+  .card-description {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #6e6e73;
+    margin: 0;
+  }
+
+  .card-divider {
+    height: 0.5px;
+    background: linear-gradient(90deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.08) 50%,
+      rgba(0, 0, 0, 0) 100%);
+    margin: 0 32px;
+  }
+
+  .card-content {
+    padding: 24px 32px 32px 32px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  .info-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .info-icon {
+    width: 20px;
+    height: 20px;
+    color: #06c;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .info-text {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #1d1d1f;
+    font-weight: 500;
+  }
+
+  .info-label {
+    font-size: 13px;
+    color: #6e6e73;
+    margin-bottom: 4px;
+  }
+
+  .info-time-secondary {
+    color: #6e6e73;
+    font-size: 14px;
+  }
+
+  .map-section {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 0.5px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .map-embed {
+    width: 100%;
+    height: 200px;
+    border: none;
+    display: block;
+  }
+
+  .card-actions {
+    padding: 24px 32px 32px 32px;
+    border-top: 0.5px solid rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .calendar-button-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  .action-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .action-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: none;
+    cursor: pointer;
+  }
+
+  .button-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  /* Primary Button (立即報名) */
+  .action-button-primary {
+    background: #06c;
+    color: white;
+  }
+
+  .action-button-primary:hover {
+    background: #0077ed;
+    transform: translateY(-1px);
+  }
+
+  .action-button-primary:active {
+    transform: translateY(0);
+  }
+
+  /* Secondary Button (工作人員招募) */
+  .action-button-secondary {
+    background: rgba(0, 0, 0, 0.05);
+    color: #1d1d1f;
+  }
+
+  .action-button-secondary:hover {
+    background: rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+  }
+
+  .action-button-secondary:active {
+    transform: translateY(0);
+  }
+
+  /* Telegram Button */
+  .action-button-telegram {
+    background: #0088cc;
+    color: white;
+  }
+
+  .action-button-telegram:hover {
+    background: #009ae6;
+    transform: translateY(-1px);
+  }
+
+  .action-button-telegram:active {
+    transform: translateY(0);
+  }
+
+  /* Responsive: Stack on mobile */
+  @media (max-width: 768px) {
+    .card-content {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .card-header {
+      padding: 24px 24px 20px 24px;
+    }
+
+    .card-title {
+      font-size: 24px;
+    }
+
+    .card-divider {
+      margin: 0 24px;
+    }
+
+    .card-content {
+      padding: 20px 24px 24px 24px;
+    }
+
+    .map-embed {
+      height: 180px;
+    }
+
+    .card-actions {
+      padding: 20px 24px 24px 24px;
+    }
+
+    .action-buttons {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .action-button {
+      padding: 14px 20px;
+    }
   }
 </style>

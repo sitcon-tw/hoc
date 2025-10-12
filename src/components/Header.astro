@@ -1,58 +1,26 @@
 ---
 import { Icon } from "astro-icon/components";
+import sitconLogo from "@assets/SITCON.svg";
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200 transition-all duration-300" id="header" style="backdrop-filter: blur(12px);">
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/70 backdrop-blur-xl border-b border-gray-200 transition-all duration-300" id="header" style="backdrop-filter: blur(20px);">
   <nav class="mx-auto px-6 py-4" style="max-width: 1200px;">
     <div class="flex items-center justify-between">
       <!-- Logo -->
-      <a href="#" class="flex items-center gap-2 text-xl font-bold text-gray-900 hover:text-[var(--color-primary)] transition-colors">
+      <a href="#" class="flex items-end gap-3 text-xl font-bold text-gray-900 hover:text-[var(--color-primary)] transition-colors no-underline">
+        <img src={sitconLogo.src} alt="SITCON Logo" class="h-8 w-auto" />
         <span>SITCON HoC</span>
       </a>
 
-      <!-- Desktop Navigation -->
-      <div class="hidden md:flex items-center gap-8">
-        <a href="#about" class="text-gray-700 hover:text-[var(--color-primary)] font-medium transition-colors">關於活動</a>
-        <a href="#sessions" class="text-gray-700 hover:text-[var(--color-primary)] font-medium transition-colors">活動場次</a>
-        <a href="#signup" class="px-6 py-2 bg-[var(--color-primary)] text-white rounded-full hover:bg-[var(--color-primary-dark)] font-medium transition-colors">立即報名</a>
+      <!-- Navigation -->
+      <div class="flex items-center gap-8">
+        <a href="#signup" class="px-4 py-1 bg-[var(--color-primary)] text-white rounded-full hover:bg-[var(--color-primary-dark)] font-medium transition-colors no-underline">立即報名</a>
       </div>
-
-      <!-- Mobile Menu Button -->
-      <button
-        id="mobile-menu-toggle"
-        class="md:hidden p-2 text-gray-700 hover:text-[var(--color-primary)] transition-colors"
-        aria-label="Toggle menu"
-      >
-        <Icon name="lucide:menu" class="w-6 h-6" />
-      </button>
-    </div>
-
-    <!-- Mobile Navigation -->
-    <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 flex flex-col gap-4">
-      <a href="#about" class="text-gray-700 hover:text-[var(--color-primary)] font-medium transition-colors py-2">關於活動</a>
-      <a href="#sessions" class="text-gray-700 hover:text-[var(--color-primary)] font-medium transition-colors py-2">活動場次</a>
-      <a href="#signup" class="px-6 py-2 bg-[var(--color-primary)] text-white rounded-full hover:bg-[var(--color-primary-dark)] font-medium transition-colors text-center">立即報名</a>
     </div>
   </nav>
 </header>
 
 <script>
-  // Mobile menu toggle
-  const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-  const mobileMenu = document.getElementById('mobile-menu');
-
-  mobileMenuToggle?.addEventListener('click', () => {
-    mobileMenu?.classList.toggle('hidden');
-  });
-
-  // Close mobile menu when clicking on links
-  const mobileMenuLinks = mobileMenu?.querySelectorAll('a');
-  mobileMenuLinks?.forEach(link => {
-    link.addEventListener('click', () => {
-      mobileMenu?.classList.add('hidden');
-    });
-  });
-
   // Header scroll effect
   let lastScroll = 0;
   const header = document.getElementById('header');
@@ -71,9 +39,9 @@ import { Icon } from "astro-icon/components";
 
   // Smooth scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+    anchor.addEventListener('click', (e) => {
       e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href') || '');
+      const target = document.querySelector(anchor.getAttribute('href') || '');
       if (target) {
         const headerOffset = 80;
         const elementPosition = target.getBoundingClientRect().top;
