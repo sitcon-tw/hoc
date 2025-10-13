@@ -3,8 +3,8 @@
     "title": "宜蘭場",
     "date": "2025-12-13T05:30:00.000+08:00",
     "time": "13:30 - 17:30",
-    "location": "宜蘭縣職業試探與體驗示範中心 (興中國中)",
-    "address": "宜蘭縣宜蘭市縣政北路1號",
+    "location": "宜蘭縣職業試探與體驗示範中心（興中國中）",
+    "address": "宜蘭縣宜蘭市縣政北路 1 號",
     "city": "宜蘭縣",
     "region": "north",
     "description": "Mbot",
@@ -18,5 +18,25 @@
     "recruitEnd": "2025-10-22T15:59:59.000+08:00",
     "registerUrl": "NA",
     "telegramUrl": "https://t.me/sitcon_hoc_ilan"
+  },
+  {
+    "title": "台中場",
+    "date": "2025-12-13T05:30:00.000+08:00",
+    "time": "10:00 - 17:00",
+    "location": "臺中市立臺中工業高級中等學校",
+    "address": "臺中市南區高工路 191 號",
+    "city": "台中市",
+    "region": "central",
+    "description": "",
+    "locationUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3641.631805686453!2d120.6614967!3d24.114440399999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34693c576d208625%3A0xce81c168637bec3e!2z6Ie65Lit5biC56uL6Ie65Lit5bel5qWt6auY57Sa5Lit562J5a245qCh!5e0!3m2!1szh-TW!2stw!4v1760324362044!5m2!1szh-TW!2stw",
+    "startDate": "2025-12-20",
+    "startTime": "10:00",
+    "endTime": "17:00",
+    "registrationStart": "2025-11-13T05:30:00.000+08:00",
+    "registrationEnd": "2025-11-23T15:59:59.000+08:00",
+    "recruitUrl": "https://forms.gle/98McQoZqTXhji7G19",
+    "recruitEnd": "2025-10-20T15:59:59.000+08:00",
+    "registerUrl": "NA",
+    "telegramUrl": "https://t.me/+RgGJi3AhZ_Y3YWVl"
   }
 ]
