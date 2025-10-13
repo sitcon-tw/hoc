@@ -23,18 +23,15 @@ const {
   locale = 'zh_TW',
 } = Astro.props as Props;
 
-// Derive full site base using Astro.site when available, otherwise fall back to
-// import.meta.env.SITE + import.meta.env.BASE_URL. This avoids hardcoding '/hoc'.
 const siteRoot = Astro.site ? Astro.site.href.replace(/\/$/, '') : (import.meta.env.SITE || 'https://sitcon.org').replace(/\/$/, '');
 const basePath = import.meta.env.BASE_URL || '/hoc/';
 const siteBase = (siteRoot + (basePath.startsWith('/') ? basePath : '/' + basePath)).replace(/\/$/, '');
-const url = new URL(pathname, siteBase).toString();
+const url = new URL(pathname, siteBase + '/').toString();
 const fullTitle = title;
 
-// Create absolute URL for OG image
 const ogImageUrl = image
-  ? (image.startsWith('http') ? image : new URL(image, siteBase).toString())
-  : new URL(ogImage.src, siteBase).toString();
+  ? (image.startsWith('http') ? image : `${siteBase}${image.startsWith('/') ? image : '/' + image}`)
+  : `${siteRoot}${ogImage.src}`;
 
 const jsonLd = {
   '@context': 'https://schema.org',
