@@ -4,11 +4,12 @@ import faqData from "@data/faq.json";
 import waveSvg from "@assets/layered-waves-haikei.svg";
 ---
 
+<div class="wave-divider">
+	<img src={waveSvg.src} alt="" />
+</div>
+
 <section id="faq">
-	<div class="wave-top">
-		<img src={waveSvg.src} alt="" />
-	</div>
-	<h2 class="pt-60">FAQ</h2>
+	<h2>FAQ</h2>
 	<div class="container">
 		<div class="faq-list">
 			{
@@ -67,27 +68,19 @@ import waveSvg from "@assets/layered-waves-haikei.svg";
 </script>
 
 <style>
-	section {
-		page-break-inside: avoid;
-		position: relative;
-	}
-
-	.wave-top {
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
+	.wave-divider {
 		width: 100%;
-		height: auto;
-		pointer-events: none;
 		line-height: 0;
-		z-index: -1;
 	}
 
-	.wave-top img {
+	.wave-divider img {
 		width: 100%;
 		height: auto;
 		display: block;
+	}
+
+	section {
+		page-break-inside: avoid;
 	}
 
 	.container {
