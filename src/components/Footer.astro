@@ -6,7 +6,6 @@ import threads from "@assets/img/social/threads.svg";
 import telegram from "@assets/img/social/telegram.svg";
 import youtube from "@assets/img/social/youtube.svg";
 import medium from "@assets/img/social/medium.svg";
-import qrcode from "@assets/img/qrcode.webp";
 ---
 
 <footer class="footer">
@@ -16,10 +15,6 @@ import qrcode from "@assets/img/qrcode.webp";
 				<h2 class="collaboration-title">合作夥伴</h2>
 				<p>Hour of Code 活動需要各界的支持與協助，誠摯邀請您成為我們的合作夥伴，一起推廣程式教育，培育未來科技人才。</p>
 				<p class="qrcode-text">掃描 QR Code 了解更多</p>
-			</div>
-			<div class="qrcode-container">
-				<img src={qrcode.src} alt="QR Code" class="qrcode" />
-				<div>線上贊助徵求書</div>
 			</div>
 		</div>
 
@@ -258,13 +253,6 @@ import qrcode from "@assets/img/qrcode.webp";
 
 		.years-grid {
 			grid-template-columns: repeat(3, 1fr);
-		}
-	}
-
-	@media screen {
-		.qrcode-container,
-		.qrcode-text {
-			display: none;
 		}
 	}
 

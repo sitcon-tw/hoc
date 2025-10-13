@@ -66,19 +66,19 @@ import sitconVolunteer from "@assets/img/sitcon-volunteer.jpg";
       // Set initial state - overlay invisible
       gsap.set(heroOverlay, { opacity: 0 });
 
-      // Pin the hero section for a while
-      const pinTrigger = ScrollTrigger.create({
+      // Animate based on scroll but don't pin
+      // Start when section is at 20% from top, end before text reaches center
+      ScrollTrigger.create({
         trigger: '#hero',
-        start: 'top top',
-        end: '+=100%', // Pin for 100% of viewport height
-        pin: true,
-        pinSpacing: true,
+        start: 'top+=20% bottom',
+        end: 'center+=20% center',
+        scrub: 1,
         onUpdate: (self) => {
-          // Text fades in during first 30% of pin progress
+          // Text fades in during first 30% of scroll progress
           const textOpacity = Math.min(self.progress / 0.3, 1);
           gsap.set(heroContent, { opacity: textOpacity });
 
-          // Image blurs and overlay fades in after 30% of pin progress
+          // Image blurs and overlay fades in after 30% of scroll progress
           if (self.progress > 0.3) {
             const blurProgress = (self.progress - 0.3) / 0.7;
             const blurAmount = blurProgress * 12;
