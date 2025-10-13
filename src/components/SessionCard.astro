@@ -4,8 +4,8 @@ import 'add-to-calendar-button';
 
 interface Props {
   title: string;
-  date: string;
-  time: string;
+  date: string; // Date in YYYY-MM-DD format
+  time: string; // Time range like "13:30 - 17:30"
   location: string;
   address?: string;
   description?: string;
@@ -14,8 +14,8 @@ interface Props {
   recruitUrl?: string; // URL for 工作人員招募
   registerUrl?: string; // URL for 立即報名
   telegramUrl?: string; // URL for 加入 Telegram
-  registrationStart?: string; // Registration start date (display format)
-  registrationEnd?: string; // Registration end date (display format)
+  registrationStart?: string; // Registration start datetime (ISO 8601 format)
+  registrationEnd?: string; // Registration end datetime (ISO 8601 format)
 }
 
 const {
@@ -34,8 +34,20 @@ const {
   registrationEnd
 } = Astro.props;
 
-// Format RFC 3339 date for display
+// Format date string (YYYY-MM-DD) for display
 function formatDate(dateStr: string): string {
+  const date = new Date(dateStr + 'T00:00:00+08:00'); // Parse as Taiwan time
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const weekdays = ['日', '一', '二', '三', '四', '五', '六'];
+  const weekday = weekdays[date.getDay()];
+
+  return `${year} 年 ${month} 月 ${day} 日（週${weekday}）`;
+}
+
+// Format ISO 8601 datetime for display (for registration dates)
+function formatDateTime(dateStr: string): string {
   const date = new Date(dateStr);
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
@@ -46,18 +58,9 @@ function formatDate(dateStr: string): string {
   return `${year} 年 ${month} 月 ${day} 日（週${weekday}）`;
 }
 
-// Format time from RFC 3339 date
-function formatTime(dateStr: string): string {
-  const date = new Date(dateStr);
-  const hours = String(date.getHours()).padStart(2, '0');
-  const minutes = String(date.getMinutes()).padStart(2, '0');
-
-  return `${hours}:${minutes}`;
-}
-
 const displayDate = date ? formatDate(date) : '';
-const displayRegistrationStart = registrationStart ? formatDate(registrationStart) : '';
-const displayRegistrationEnd = registrationEnd ? formatDate(registrationEnd) : '';
+const displayRegistrationStart = registrationStart ? formatDateTime(registrationStart) : '';
+const displayRegistrationEnd = registrationEnd ? formatDateTime(registrationEnd) : '';
 
 // Helper to check if URL is valid (not "NA" or empty)
 const isValidUrl = (url?: string) => url && url !== 'NA' && url.trim() !== '';

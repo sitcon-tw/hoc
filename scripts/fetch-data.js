@@ -103,40 +103,21 @@ function getRegion(city) {
 }
 
 /**
- * Parse Unix timestamp (seconds) to Date object
+ * Parse RFC 3339 / ISO 8601 date string to Date object
  */
-function parseTimestamp(timestamp) {
-  if (!timestamp) return null;
+function parseRFC3339(dateString) {
+  if (!dateString || dateString === 'NA') return null;
 
-  // Convert Unix timestamp (seconds) to milliseconds
-  const numTimestamp = parseInt(timestamp, 10);
-  if (isNaN(numTimestamp)) return null;
-
-  const date = new Date(numTimestamp * 1000);
+  const date = new Date(dateString);
   if (isNaN(date.getTime())) return null;
 
   return date;
 }
 
 /**
- * Format date string to ISO format
+ * Format time from Date object (HH:MM format)
  */
-function formatDateTime(timestamp, hoursOffset = 0) {
-  const date = parseTimestamp(timestamp);
-  if (!date) return '';
-
-  if (hoursOffset !== 0) {
-    date.setHours(date.getHours() + hoursOffset);
-  }
-
-  return date.toISOString().replace('Z', '+08:00');
-}
-
-/**
- * Format time from timestamp (HH:MM format)
- */
-function formatTime(timestamp) {
-  const date = parseTimestamp(timestamp);
+function formatTime(date) {
   if (!date) return '';
 
   const hours = String(date.getHours()).padStart(2, '0');
@@ -149,22 +130,31 @@ function formatTime(timestamp) {
  */
 function transformData(csvData) {
   return csvData.map(row => {
-    const startTime = formatTime(row.ClassStartTimestamp);
-    const endTime = formatTime(row.ClassStopTimestamp);
+    // Parse start and end times from RFC 3339 format
+    const startDate = parseRFC3339(row.ClassStartTime);
+    const endDate = parseRFC3339(row.ClassStopTime);
+
+    const startTime = formatTime(startDate);
+    const endTime = formatTime(endDate);
     const timeRange = startTime && endTime ? `${startTime} - ${endTime}` : '';
 
     // Calculate registration start (30 days before class start)
     let registrationStart = '';
-    if (row.ClassStartTimestamp) {
-      const startTimestamp = parseInt(row.ClassStartTimestamp, 10);
-      const thirtyDaysInSeconds = 30 * 24 * 60 * 60; // 30 days in seconds
-      const registrationStartTimestamp = startTimestamp - thirtyDaysInSeconds;
-      registrationStart = formatDateTime(registrationStartTimestamp.toString());
+    if (startDate) {
+      const registrationStartDate = new Date(startDate);
+      registrationStartDate.setDate(registrationStartDate.getDate() - 30);
+      registrationStart = registrationStartDate.toISOString();
     }
+
+    // Parse registration end date
+    const registrationEndDate = parseRFC3339(row.registrationEnd);
+
+    // Extract just the date part (YYYY-MM-DD) from ClassStartTime
+    const dateOnly = startDate ? startDate.toISOString().split('T')[0] : '';
 
     return {
       title: row.title || '',
-      date: formatDateTime(row.ClassStartTimestamp),
+      date: dateOnly,
       time: timeRange,
       location: row.location || '',
       address: row.address || '',
@@ -173,7 +163,7 @@ function transformData(csvData) {
       description: row.description || '',
       locationUrl: row.locationUrl || '',
       registrationStart: registrationStart,
-      registrationEnd: formatDateTime(row.registrationEnd),
+      registrationEnd: registrationEndDate ? registrationEndDate.toISOString() : '',
       recruitUrl: row.recruitUrl || '',
       registerUrl: row.registerUrl || '',
       telegramUrl: row.telegramUrl || ''
