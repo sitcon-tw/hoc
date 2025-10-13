@@ -1,9 +1,31 @@
 ---
+// Import all carousel images
+import sitcon1 from "@assets/img/sitcon-1.webp";
+import sitcon2 from "@assets/img/sitcon-2.webp";
+import sitcon3 from "@assets/img/sitcon-3.webp";
+import sitcon4 from "@assets/img/sitcon-4.webp";
+import sitcon5 from "@assets/img/sitcon-5.webp";
+import sitcon6 from "@assets/img/sitcon-6.webp";
+import sitcon7 from "@assets/img/sitcon-7.webp";
+import sitcon8 from "@assets/img/sitcon-8.webp";
+import sitcon9 from "@assets/img/sitcon-9.webp";
+
+const images = [
+  { src: sitcon1, alt: "SITCON 活動照片 1" },
+  { src: sitcon2, alt: "SITCON 活動照片 2" },
+  { src: sitcon3, alt: "SITCON 活動照片 3" },
+  { src: sitcon4, alt: "SITCON 活動照片 4" },
+  { src: sitcon5, alt: "SITCON 活動照片 5" },
+  { src: sitcon6, alt: "SITCON 活動照片 6" },
+  { src: sitcon7, alt: "SITCON 活動照片 7" },
+  { src: sitcon8, alt: "SITCON 活動照片 8" },
+  { src: sitcon9, alt: "SITCON 活動照片 9" },
+];
 ---
 
-<section class="section relative z-10 bg-white" id="intro">
+<section class="section relative z-10 bg-gradient-to-b from-white to-gray-50" id="intro">
   <div class="container mx-auto px-6">
-    <div class="max-w-4xl mx-auto text-center">
+    <div class="max-w-4xl mx-auto text-center mb-12">
       <!-- Title -->
       <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-8">
         關於 SITCON
@@ -14,6 +36,33 @@
         學生計算機年會（Students' Information Technology Conference）自 2012 年發起，以學生為本、由學生自發舉辦，長期投身學生資訊教育與推廣開源精神，希望引領更多學子踏入資訊的殿堂，更冀望所有對資訊有興趣的學生，能夠在年會裏齊聚一堂，彼此激盪、傳承、啟發，達到「學以致用、教學相長」的實際展現。
       </p>
     </div>
+
+    <!-- Image Carousel -->
+    <div class="carousel-container">
+      <div class="carousel-track">
+        {images.map((image) => (
+          <div class="carousel-item">
+            <img
+              src={image.src.src}
+              alt={image.alt}
+              class="carousel-image"
+              loading="lazy"
+            />
+          </div>
+        ))}
+        <!-- Duplicate images for seamless loop -->
+        {images.map((image) => (
+          <div class="carousel-item">
+            <img
+              src={image.src.src}
+              alt={image.alt}
+              class="carousel-image"
+              loading="lazy"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
   </div>
 </section>
 
@@ -22,10 +71,64 @@
     padding: 6rem 0;
   }
 
+  .carousel-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .carousel-track {
+    display: flex;
+    gap: 24px;
+    animation: scroll 40s linear infinite;
+    width: fit-content;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .carousel-item {
+    flex-shrink: 0;
+    width: 400px;
+    height: 250px;
+    position: relative;
+    background: #f0f0f0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .carousel-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .carousel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
   @media (max-width: 768px) {
     .section {
       padding: 4rem 0;
     }
+
+    .carousel-track {
+      gap: 16px;
+    }
+
+    .carousel-item {
+      width: 280px;
+      height: 180px;
+    }
   }
 </style>
-
