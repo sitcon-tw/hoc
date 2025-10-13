@@ -3,67 +3,68 @@
 
 /* Design Tokens & CSS Variables */
 :root {
-  /* Colors - Official SITCON Brand Colors */
-  --color-primary: #00d959;
-  --color-primary-dark: #00c04d;
-  --color-primary-light: #33e377;
-  --color-secondary: #00a843;
-  --color-accent: #66ed95;
+	/* Colors - Official SITCON Brand Colors */
+	--color-primary: #00d959;
+	--color-primary-dark: #00c04d;
+	--color-primary-light: #33e377;
+	--color-secondary: #00a843;
+	--color-accent: #66ed95;
 
-  /* Grayscale */
-  --color-bg: #FFFFFF;
-  --color-bg-alt: #F7F9FC;
-  --color-text: #2C3E50;
-  --color-text-light: #6C757D;
-  --color-border: #E0E6ED;
+	/* Grayscale */
+	--color-bg: #FFFFFF;
+	--color-bg-alt: #F7F9FC;
+	--color-text: #2C3E50;
+	--color-text-light: #6C757D;
+	--color-border: #E0E6ED;
 
-  /* Spacing */
-  --spacing-section: 6rem;
-  --spacing-container: 1.5rem;
+	/* Spacing */
+	--spacing-section: 6rem;
+	--spacing-container: 1.5rem;
 
-  /* Typography */
-  --font-family: 'LINESeedTW', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+	/* Typography */
+	--font-family: 'LINESeedTW', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
 }
 
 /* Global Styles */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 html {
-  scroll-behavior: smooth;
-  font-family: var(--font-family);
+	scroll-behavior: smooth;
+	font-family: var(--font-family);
 }
 
 body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  line-height: 1.6;
-  overflow-x: hidden;
+	background-color: var(--color-bg);
+	color: var(--color-text);
+	line-height: 1.6;
+	overflow-x: hidden;
 }
 
 /* Container Utility */
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 var(--spacing-container);
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 var(--spacing-container);
 }
 
 /* Section Spacing */
 .section {
-  padding: var(--spacing-section) 0;
+	padding: var(--spacing-section) 0;
 }
 
 /* Smooth Transitions */
-a, button {
-  transition: all 0.3s ease;
+a,
+button {
+	transition: all 0.3s ease;
 }
 
 /* Focus States */
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
+	outline: 2px solid var(--color-primary);
+	outline-offset: 2px;
 }

@@ -1,0 +1,100 @@
+---
+import sitconVolunteer from "@assets/img/sitcon-volunteer.jpg";
+---
+
+<section class="relative z-0 min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-green-50 via-white to-green-50" id="hero">
+  <!-- Background Image with Blur Effect -->
+  <div class="hero-image-container absolute inset-0 overflow-hidden">
+    <img
+      src={sitconVolunteer.src}
+      alt="SITCON Volunteers"
+      class="hero-image w-full h-full object-cover"
+    />
+    <!-- White overlay layer -->
+    <div class="hero-overlay absolute inset-0 bg-white"></div>
+  </div>
+
+  <!-- Animated Background Elements -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="hero-circle absolute w-64 h-64 bg-[var(--color-primary)]/10 rounded-full blur-3xl top-20 -left-32"></div>
+    <div class="hero-circle absolute w-96 h-96 bg-[var(--color-accent)]/10 rounded-full blur-3xl bottom-20 -right-32"></div>
+  </div>
+
+  <div class="container mx-auto px-6 relative z-10 h-full flex items-center">
+    <div class="w-full text-center">
+      <!-- Main Title -->
+      <h1 class="hero-title text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-8 leading-tight">
+        Code Your First Hour.
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="hero-subtitle text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-700 leading-tight">
+        先一起找拍子，再一起寫程式
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Animate hero elements on load
+  document.addEventListener('DOMContentLoaded', () => {
+    // Set initial state - text completely invisible
+    const heroContent = document.querySelectorAll('.hero-title, .hero-subtitle');
+    gsap.set(heroContent, { opacity: 0 });
+
+    // Animate background circles
+    gsap.to('.hero-circle', {
+      y: '+=30',
+      x: '+=20',
+      duration: 3,
+      ease: 'sine.inOut',
+      yoyo: true,
+      repeat: -1,
+      stagger: 0.5
+    });
+
+    // Scroll-based blur animation with pin effect
+    const heroImage = document.querySelector('.hero-image');
+    const heroOverlay = document.querySelector('.hero-overlay');
+
+    if (heroImage && heroOverlay) {
+      // Set initial state - overlay invisible
+      gsap.set(heroOverlay, { opacity: 0 });
+
+      // Pin the hero section for a while
+      const pinTrigger = ScrollTrigger.create({
+        trigger: '#hero',
+        start: 'top top',
+        end: '+=100%', // Pin for 100% of viewport height
+        pin: true,
+        pinSpacing: true,
+        onUpdate: (self) => {
+          // Text fades in during first 30% of pin progress
+          const textOpacity = Math.min(self.progress / 0.3, 1);
+          gsap.set(heroContent, { opacity: textOpacity });
+
+          // Image blurs and overlay fades in after 30% of pin progress
+          if (self.progress > 0.3) {
+            const blurProgress = (self.progress - 0.3) / 0.7;
+            const blurAmount = blurProgress * 12;
+            const scale = 1 + (blurProgress * 0.1);
+            const overlayOpacity = blurProgress * 0.7; // Max 70% opacity
+
+            gsap.set(heroImage, {
+              filter: `blur(${blurAmount}px)`,
+              scale: scale
+            });
+            gsap.set(heroOverlay, {
+              opacity: overlayOpacity
+            });
+          }
+        }
+      });
+    }
+  });
+</script>
