@@ -1,4 +1,6 @@
 ---
+import ogImage from "@assets/img/og.png";
+
 export interface Props {
   title?: string;
   description?: string;
@@ -27,7 +29,6 @@ const siteRoot = Astro.site ? Astro.site.href.replace(/\/$/, '') : (import.meta.
 const basePath = import.meta.env.BASE_URL || '/hoc/';
 const siteBase = (siteRoot + (basePath.startsWith('/') ? basePath : '/' + basePath)).replace(/\/$/, '');
 const url = new URL(pathname, siteBase).toString();
-const imageUrl = image.startsWith('http') ? image : new URL(image, siteBase).toString();
 const fullTitle = title;
 
 const jsonLd = {
@@ -51,7 +52,7 @@ const jsonLd = {
 <meta property="og:url" content={url} />
 <meta property="og:title" content={fullTitle} />
 {description ? <meta property="og:description" content={description} /> : null}
-<meta property="og:image" content={imageUrl} />
+<meta property="og:image" content={ogImage.src} />
 <meta property="og:site_name" content="SITCON Hour of Code" />
 <meta property="og:locale" content={locale} />
 
@@ -60,7 +61,7 @@ const jsonLd = {
 <meta name="twitter:site" content="@sitcontw" />
 <meta name="twitter:title" content={fullTitle} />
 {description ? <meta name="twitter:description" content={description} /> : null}
-<meta name="twitter:image" content={imageUrl} />
+<meta name="twitter:image" content={ogImage.src} />
 
 <!-- Misc -->
 <meta name="robots" content="index, follow" />
