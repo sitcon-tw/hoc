@@ -15,7 +15,7 @@ export interface Props {
 const {
   title,
   description,
-  image = '/og.png',
+  image,
   pathname = '/',
   publishedAt,
   modifiedAt,
@@ -31,6 +31,11 @@ const siteBase = (siteRoot + (basePath.startsWith('/') ? basePath : '/' + basePa
 const url = new URL(pathname, siteBase).toString();
 const fullTitle = title;
 
+// Create absolute URL for OG image
+const ogImageUrl = image
+  ? (image.startsWith('http') ? image : new URL(image, siteBase).toString())
+  : new URL(ogImage.src, siteBase).toString();
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
@@ -38,6 +43,17 @@ const jsonLd = {
   'inLanguage': locale.replace('_', '-'),
   'name': fullTitle,
   'description': description,
+  'image': ogImageUrl,
+  'publisher': {
+    '@type': 'Organization',
+    'name': 'SITCON 學生計算機年會',
+    'logo': {
+      '@type': 'ImageObject',
+      'url': new URL('/hoc/favicon.svg', siteRoot).toString()
+    }
+  },
+  ...(publishedAt && { 'datePublished': publishedAt }),
+  ...(modifiedAt && { 'dateModified': modifiedAt }),
 };
 
 ---
@@ -47,26 +63,41 @@ const jsonLd = {
 {description ? <meta name="description" content={description} /> : null}
 <link rel="canonical" href={url} />
 
+<!-- Language Alternatives -->
+<meta http-equiv="content-language" content="zh-TW" />
+<link rel="alternate" hreflang="zh-TW" href={url} />
+<link rel="alternate" hreflang="x-default" href={url} />
+
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content={url} />
 <meta property="og:title" content={fullTitle} />
 {description ? <meta property="og:description" content={description} /> : null}
-<meta property="og:image" content={ogImage.src} />
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:image:secure_url" content={ogImageUrl} />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1600" />
+<meta property="og:image:height" content="900" />
+<meta property="og:image:alt" content={fullTitle} />
 <meta property="og:site_name" content="SITCON Hour of Code" />
 <meta property="og:locale" content={locale} />
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@sitcontw" />
+<meta name="twitter:creator" content="@sitcontw" />
 <meta name="twitter:title" content={fullTitle} />
 {description ? <meta name="twitter:description" content={description} /> : null}
-<meta name="twitter:image" content={ogImage.src} />
+<meta name="twitter:image" content={ogImageUrl} />
+<meta name="twitter:image:alt" content={fullTitle} />
 
 <!-- Misc -->
 <meta name="robots" content="index, follow" />
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+<meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 <meta name="author" content="SITCON 學生計算機年會" />
 {tags.length ? <meta name="keywords" content={tags.join(', ')} /> : null}
+<meta name="format-detection" content="telephone=no" />
 
 <script type="application/ld+json">
   {JSON.stringify(jsonLd)}
