@@ -1,0 +1,231 @@
+---
+import { Icon } from "astro-icon/components";
+import faqData from "@data/faq.json";
+import waveSvg from "@assets/layered-waves-haikei.svg";
+---
+
+<section id="faq">
+	<div class="wave-top">
+		<img src={waveSvg.src} alt="" />
+	</div>
+	<h2 class="pt-60">FAQ</h2>
+	<div class="container">
+		<div class="faq-list">
+			{
+				faqData.map((question: { question: string; answer: string }, index: number) => (
+					<div class="faq-item">
+						<button class="faq-question" data-faq={index + 1}>
+							<span class="question-text">{question.question}</span>
+							<Icon name="lucide:chevron-down" class="chevron-icon" width={40} height={40} />
+						</button>
+
+						<div class="faq-answer" data-answer={index + 1}>
+							<p>{question.answer}</p>
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		const faqQuestions = document.querySelectorAll(".faq-question");
+
+		faqQuestions.forEach(question => {
+			question.addEventListener("click", function (this: HTMLButtonElement) {
+				const faqId = this.getAttribute("data-faq");
+				const answer: HTMLElement = document.querySelector(`[data-answer="${faqId}"]`) as HTMLElement;
+				const chevron: HTMLElement = this.querySelector(".chevron-icon") as HTMLElement;
+
+				// Toggle the answer visibility
+				if (answer.classList.contains("open")) {
+					answer.classList.remove("open");
+					chevron.style.transform = "rotate(0deg)";
+					this.classList.remove("active");
+				} else {
+					// Close all other answers
+					document.querySelectorAll(".faq-answer").forEach(ans => {
+						ans.classList.remove("open");
+					});
+					document.querySelectorAll(".chevron-icon").forEach(chev => {
+						(chev as HTMLElement).style.transform = "rotate(0deg)";
+					});
+					document.querySelectorAll(".faq-question").forEach(q => {
+						q.classList.remove("active");
+					});
+
+					// Open current answer
+					answer.classList.add("open");
+					chevron.style.transform = "rotate(180deg)";
+					this.classList.add("active");
+				}
+			});
+		});
+	});
+</script>
+
+<style>
+	section {
+		page-break-inside: avoid;
+		position: relative;
+	}
+
+	.wave-top {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		width: 100%;
+		height: auto;
+		pointer-events: none;
+		line-height: 0;
+		z-index: -1;
+	}
+
+	.wave-top img {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 2rem 1rem 3rem;
+	}
+
+	.faq-list {
+		max-width: 800px;
+		margin: 0 auto;
+	}
+
+	.faq-item {
+		border-bottom: 1px solid var(--border-light);
+	}
+
+	.faq-item:last-child {
+		border-bottom: none;
+	}
+
+	.faq-question {
+		width: 100%;
+		padding: 1rem 0;
+		background: none;
+		border: none;
+		text-align: left;
+		cursor: pointer;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		font-size: 1.5rem;
+		font-weight: 600;
+		color: var(--black);
+		transition: color 0.2s ease;
+	}
+
+	.question-text {
+		flex: 1;
+	}
+
+	.chevron-icon {
+		transition: transform 0.3s ease;
+	}
+
+	.faq-answer {
+		max-height: 0;
+		overflow: hidden;
+		padding: 0 0 0 0;
+		line-height: 1.6;
+		color: var(--gray);
+		font-size: 1.2rem;
+		transition:
+			max-height 0.3s linear,
+			padding 0.3s linear;
+	}
+
+	.faq-answer.open {
+		max-height: 200px;
+		padding: 0 0 24px 0;
+	}
+
+	.faq-answer p {
+		margin: 0;
+	}
+
+	h2 {
+		text-align: center;
+		font-size: 3rem;
+		font-weight: 700;
+		margin-bottom: 3rem;
+		color: var(--black);
+	}
+
+	@media screen and (max-width: 768px) {
+		h2 {
+			font-size: 2.5rem;
+			margin-bottom: 2rem;
+		}
+		.question-text {
+			font-size: 1.3rem;
+		}
+		.faq-question {
+			padding: 1rem 0;
+			font-size: 1.75rem;
+		}
+
+		.faq-answer {
+			font-size: 1rem;
+		}
+
+		.chevron-icon {
+			width: 30px;
+			height: 30px;
+		}
+	}
+
+	@media screen and (max-width: 480px) {
+		.container {
+			padding: 0 16px;
+		}
+
+		.faq-question {
+			padding: 16px 0;
+			font-size: 1.5rem;
+		}
+	}
+
+	@media print {
+		.container {
+			padding: 10pt;
+		}
+		.faq-answer {
+			max-height: none;
+			overflow: visible;
+			padding: 0 0 24px 0;
+		}
+
+		.faq-question .chevron-icon {
+			display: none;
+		}
+
+		.faq-question {
+			cursor: default;
+			font-size: 16pt;
+			padding: 12pt 0 0;
+		}
+
+		.faq-answer {
+			padding: 0 0 12pt 0;
+		}
+
+		p {
+			font-size: 10pt;
+		}
+
+		h2 {
+			padding-top: 80pt;
+		}
+	}
+</style>
