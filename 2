@@ -3,9 +3,9 @@ import teachImage from "@assets/img/teach.jpg";
 import warring from "@assets/warring.svg";
 ---
 
-<section class="section relative z-10 bg-white" id="intro-hoc">
+<section class="section relative z-10 bg-gradient-to-b from-gray-50 to-white" id="intro-hoc">
 	<!-- 跑馬燈 -->
-	<div class="marquee-wrapper mb-10">
+	<div class="marquee-wrapper">
 		<div id="marquee" style={`background-image: url(${warring.src})`}></div>
 	</div>
 
@@ -22,31 +22,31 @@ import warring from "@assets/warring.svg";
           
           <div class="space-y-6 text-lg md:text-xl text-gray-700 leading-relaxed">
             <p>
-			Hour of Code（一小時玩程式） 是一項全球推廣計畫，由非營利組織 Code.org 發起，旨在讓每個人都能在短時間內體驗寫程式的樂趣與可能性。透過簡單、有趣的互動課程，參與者只需花上短短的時間，就能初步理解程式設計的邏輯思維，發現運算思維在日常生活中的應用，並開啟通往科技世界的第一步。 
+			關於這個事,我簡單說兩句,你明白就行,總而言之,這個事呢,現在就是這個情況,具體的呢,大家也都看得到,也得出來說那麼幾句,可能,你聽的不是很明白,但是意思就是那麼個意思,不知道的你也不用去猜,這種事情見得多了,我只想說懂得都懂,不懂的我也不多解釋,畢竟自己知道就好,細細品吧。你們也別來問我怎麼了,利益牽扯太大,說了對你我都沒好處,當不知道就行了,其餘的我只能說這裡面水很深,牽扯到很多東西。詳細情況你們自己是很難找的,所以我只能說懂得都懂。懂的人已經基本都獲利上岸什麼的了,不懂的人永遠不懂,所以大家最好是不懂就不要去了解,懂太多不好 
             </p>
           </div>
         </div>
 
         <!-- Features List -->
         <div class="space-y-4">
-          <h3 class="text-2xl font-semibold text-gray-900 mb-4 pt-6">該參加 <span class="text-[#77B65A]">Hour of Code</span> 的三大理由</h3>
+          <h3 class="text-2xl font-semibold text-gray-900 mb-4 pt-6">這裡可以放很酷的條列標題</h3>
           <div class="grid gap-4">
             <div class="flex items-start gap-3">
               <div class="w-2 h-2 bg-[#77B65A] rounded-full mt-3 flex-shrink-0"></div>
               <p class="text-lg text-gray-700">
-                <span class="font-semibold">輕鬆入門</span>  課程設計對於零基礎友善
+                <span class="font-semibold">你說得對</span>  這裡可以放很酷的列表
               </p>
             </div>
             <div class="flex items-start gap-3">
               <div class="w-2 h-2 bg-[#77B65A] rounded-full mt-3 flex-shrink-0"></div>
               <p class="text-lg text-gray-700">
-                <span class="font-semibold">親子共學</span>  除了玩還可以增進親子感情
+                <span class="font-semibold">你說得對</span>  這裡可以放很酷的列表
               </p>
             </div>
             <div class="flex items-start gap-3">
               <div class="w-2 h-2 bg-[#77B65A] rounded-full mt-3 flex-shrink-0"></div>
               <p class="text-lg text-gray-700">
-                <span class="font-semibold">培養邏輯</span>  從遊戲中理解電腦思考的方式
+                <span class="font-semibold">你說得對</span>  這裡可以放很酷的列表
               </p>
             </div>
           </div>
@@ -55,7 +55,7 @@ import warring from "@assets/warring.svg";
         <!-- Call to Action -->
         <div class="pt-4">
           <p class="text-xl text-gray-600 font-medium">
-           我相信你心動了，往下滑找到最近的場次！	
+           這裡可以放很酷的小標題	
           </p>
         </div>
       </div>
@@ -76,21 +76,21 @@ import warring from "@assets/warring.svg";
       </div>
     </div>
   </div>
-  <div class="marquee-wrapper mt-10">
+	<div class="marquee-wrapper pt-4">
 		<div id="marquee" style={`background-image: url(${warring.src})`}></div>
 	</div>
 </section>
 
 <style>
-  #container {
+  .section {
     padding: 6rem 0;
   }
 
   .marquee-wrapper {
     overflow: hidden;
     width: 100%;
+    margin-bottom: 3rem;
     line-height: 0;
-
   }
 
   #marquee {
@@ -115,7 +115,7 @@ import warring from "@assets/warring.svg";
   }
 
   @media (max-width: 768px) {
-    #container {
+    .section {
       padding: 4rem 0;
     }
     
