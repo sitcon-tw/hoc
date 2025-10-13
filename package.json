@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "fetch-data": "node scripts/fetch-data.js"
   },
   "dependencies": {
     "@iconify-json/lucide": "^1.2.69",

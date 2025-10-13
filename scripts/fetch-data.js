@@ -217,6 +217,7 @@ async function main() {
     fs.writeFileSync(OUTPUT_PATH, JSON.stringify(sessions, null, 2) + '\n');
 
     console.log('- Successfully updated sessions.json');
+    process.exit(0);
   } catch (error) {
     console.error('L Error:', error.message);
     process.exit(1);
