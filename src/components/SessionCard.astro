@@ -66,6 +66,9 @@ function formatTime(dateStr: string): string {
 const displayDate = date ? formatDate(date) : '';
 const displayRegistrationStart = registrationStart ? formatDate(registrationStart) : '';
 const displayRegistrationEnd = registrationEnd ? formatDate(registrationEnd) : '';
+
+// Helper to check if URL is valid (not "NA" or empty)
+const isValidUrl = (url?: string) => url && url !== 'NA' && url.trim() !== '';
 ---
 
 <div class="session-card" data-city={city}>
@@ -157,24 +160,45 @@ const displayRegistrationEnd = registrationEnd ? formatDate(registrationEnd) : '
       <!-- Action Buttons -->
       <div class="action-buttons">
         {recruitUrl && (
-          <a href={recruitUrl} class="action-button action-button-secondary" target="_blank" rel="noopener noreferrer">
-            <Icon name="lucide:users" class="button-icon" />
-            <span>助教招募</span>
-          </a>
+          isValidUrl(recruitUrl) ? (
+            <a href={recruitUrl} class="action-button action-button-secondary" target="_blank" rel="noopener noreferrer">
+              <Icon name="lucide:users" class="button-icon" />
+              <span>助教招募</span>
+            </a>
+          ) : (
+            <button class="action-button action-button-secondary action-button-disabled" disabled>
+              <Icon name="lucide:users" class="button-icon" />
+              <span>助教招募</span>
+            </button>
+          )
         )}
 
         {registerUrl && (
-          <a href={registerUrl} class="action-button action-button-primary" target="_blank" rel="noopener noreferrer">
-            <Icon name="lucide:user-plus" class="button-icon" />
-            <span>立即報名</span>
-          </a>
+          isValidUrl(registerUrl) ? (
+            <a href={registerUrl} class="action-button action-button-primary" target="_blank" rel="noopener noreferrer">
+              <Icon name="lucide:user-plus" class="button-icon" />
+              <span>立即報名</span>
+            </a>
+          ) : (
+            <button class="action-button action-button-primary action-button-disabled" disabled>
+              <Icon name="lucide:user-plus" class="button-icon" />
+              <span>立即報名</span>
+            </button>
+          )
         )}
 
         {telegramUrl && (
-          <a href={telegramUrl} class="action-button action-button-telegram" target="_blank" rel="noopener noreferrer">
-            <Icon name="lucide:send" class="button-icon" />
-            <span>加入 Telegram</span>
-          </a>
+          isValidUrl(telegramUrl) ? (
+            <a href={telegramUrl} class="action-button action-button-telegram" target="_blank" rel="noopener noreferrer">
+              <Icon name="lucide:send" class="button-icon" />
+              <span>加入 Telegram</span>
+            </a>
+          ) : (
+            <button class="action-button action-button-telegram action-button-disabled" disabled>
+              <Icon name="lucide:send" class="button-icon" />
+              <span>加入 Telegram</span>
+            </button>
+          )
         )}
       </div>
     </div>
@@ -380,6 +404,16 @@ const displayRegistrationEnd = registrationEnd ? formatDate(registrationEnd) : '
 
   .action-button-telegram:active {
     transform: translateY(0);
+  }
+
+  /* Disabled Button */
+  .action-button-disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .action-button-disabled:hover {
+    transform: none;
   }
 
   /* Responsive: Stack on mobile */
