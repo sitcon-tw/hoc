@@ -3,9 +3,9 @@ import teachImage from "@assets/img/teach.jpg";
 import warring from "@assets/warring.svg";
 ---
 
-<section class="section relative z-10 bg-white" id="intro-hoc">
+<section class="section relative z-10 bg-gradient-to-b from-gray-50 to-white" id="intro-hoc">
 	<!-- 跑馬燈 -->
-	<div class="marquee-wrapper mb-10">
+	<div class="marquee-wrapper">
 		<div id="marquee" style={`background-image: url(${warring.src})`}></div>
 	</div>
 
@@ -76,21 +76,21 @@ import warring from "@assets/warring.svg";
       </div>
     </div>
   </div>
-  <div class="marquee-wrapper mt-10">
+	<div class="marquee-wrapper pt-4">
 		<div id="marquee" style={`background-image: url(${warring.src})`}></div>
 	</div>
 </section>
 
 <style>
-  #container {
+  .section {
     padding: 6rem 0;
   }
 
   .marquee-wrapper {
     overflow: hidden;
     width: 100%;
+    margin-bottom: 3rem;
     line-height: 0;
-
   }
 
   #marquee {
@@ -115,7 +115,7 @@ import warring from "@assets/warring.svg";
   }
 
   @media (max-width: 768px) {
-    #container {
+    .section {
       padding: 4rem 0;
     }
     
