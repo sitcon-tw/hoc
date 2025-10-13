@@ -1,4 +1,4 @@
-name: Deploy CFS site
+name: Deploy HoC site
 
 on:
     push:

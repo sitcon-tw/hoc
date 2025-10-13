@@ -145,19 +145,6 @@ function formatTime(timestamp) {
 }
 
 /**
- * Format date only (YYYY-MM-DD format)
- */
-function formatDate(timestamp) {
-  const date = parseTimestamp(timestamp);
-  if (!date) return '';
-
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-}
-
-/**
  * Transform CSV data to sessions.json format
  */
 function transformData(csvData) {
@@ -185,13 +172,9 @@ function transformData(csvData) {
       region: getRegion(row.city || ''),
       description: row.description || '',
       locationUrl: row.locationUrl || '',
-      startDate: formatDate(row.ClassStartTimestamp),
-      startTime: startTime,
-      endTime: endTime,
       registrationStart: registrationStart,
       registrationEnd: formatDateTime(row.registrationEnd),
       recruitUrl: row.recruitUrl || '',
-      recruitEnd: formatDateTime(row.recruitEnd),
       registerUrl: row.registerUrl || '',
       telegramUrl: row.telegramUrl || ''
     };

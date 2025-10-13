@@ -11,10 +11,6 @@ interface Props {
   description?: string;
   locationUrl?: string;
   city?: string;
-  startDate?: string; // Format: YYYY-MM-DD
-  endDate?: string; // Format: YYYY-MM-DD
-  startTime?: string; // Format: HH:MM
-  endTime?: string; // Format: HH:MM
   recruitUrl?: string; // URL for 工作人員招募
   registerUrl?: string; // URL for 立即報名
   telegramUrl?: string; // URL for 加入 Telegram
@@ -30,10 +26,6 @@ const {
   description,
   locationUrl,
   city,
-  startDate,
-  endDate,
-  startTime,
-  endTime,
   address,
   recruitUrl,
   registerUrl,
@@ -135,28 +127,6 @@ const isValidUrl = (url?: string) => url && url !== 'NA' && url.trim() !== '';
 
     <!-- Action Buttons Section -->
     <div class="card-actions">
-      <!-- Add to Calendar Button -->
-      {startDate && startTime && (
-        <div class="calendar-button-wrapper">
-          <add-to-calendar-button
-            name={title}
-            description={description || ''}
-            startDate={startDate}
-            endDate={endDate || startDate}
-            startTime={startTime}
-            endTime={endTime || startTime}
-            location={location}
-            options="'Apple','Google','iCal','Outlook.com','Yahoo'"
-            timeZone="Asia/Taipei"
-            lightMode="bodyScheme"
-            language="zh-TW"
-            size="3"
-            buttonStyle="round"
-            listStyle="overlay"
-          ></add-to-calendar-button>
-        </div>
-      )}
-
       <!-- Action Buttons -->
       <div class="action-buttons">
         {recruitUrl && (
