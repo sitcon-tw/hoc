@@ -14,5 +14,21 @@
     "recruitUrl": "https://forms.gle/dfbAeDeSjnG5bXf8A",
     "registerUrl": "NA",
     "telegramUrl": "https://t.me/sitcon_hoc_ilan"
+  },
+  {
+    "title": "臺中場",
+    "date": "2025-12-20",
+    "time": "13:30 - 16:30",
+    "location": "臺中高工",
+    "address": "台中市南區高工路191號",
+    "city": "臺中市",
+    "region": "north",
+    "description": "課程規劃中，時間為暫定，實際以報名表單為準。",
+    "locationUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2958.825842618997!2d120.65892177436149!3d24.114440378423726!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34693c576d208625%3A0xce81c168637bec3e!2z6Ie65Lit5biC56uL6Ie65Lit5bel5qWt6auY57Sa5Lit562J5a245qCh!5e1!3m2!1szh-TW!2stw!4v1760405318359!5m2!1szh-TW!2stw",
+    "registrationStart": "2025-11-20T05:30:00.000Z",
+    "registrationEnd": "2025-11-23T15:59:59.000Z",
+    "recruitUrl": "NA",
+    "registerUrl": "NA",
+    "telegramUrl": "https://t.me/SITCON_HoC_Taichung"
   }
 ]
