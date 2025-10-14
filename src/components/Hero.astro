@@ -31,7 +31,6 @@ import stone from "@assets/stone.svg";
 						alt="小石"
 						class="cursor-pointer transition-transform duration-700 ease-in-out"
 						style="transform-origin: center;"
-						onclick="this.classList.remove('spin'); void this.offsetWidth; this.classList.add('spin');"
 						/>
 			</div>
 			<span class="text-3xl md:text-4xl lg:text-5xl text-gray-600">一小時玩程式</span>
@@ -43,18 +42,15 @@ import stone from "@assets/stone.svg";
 	</div>
 </section>
 
-<style>
-	@keyframes spin {
-		from { transform: rotate(0deg); }
-		to { transform: rotate(360deg); }
-	}
-
-	.spin {
-		animation: spin 0.7s ease-in-out;
-	}
-</style>
-
 <script>
+
+	const img = document.getElementById("stone-img");
+	let angle = 0;
+	img.addEventListener("click", () => {
+		angle += 360;
+		img.style.transform = `rotate(${angle}deg)`;
+	});
+
 	const stoneImg = document.getElementById('stone-img');
 	let isRotating = false;
 	let currentRotation = 0;
