@@ -6,49 +6,64 @@ import stone from "@assets/stone.svg";
 ---
 
 <section class="relative left-1/2 right-1/2 -mx-[50vw] w-screen h-screen">
-  <!-- 內容置中且限寬 -->
-  <div class={`max-w-6xl mx-auto h-full flex flex-col justify-center items-center px-8 text-center ${className}`}>
-    <div class="mb-12">
-      <div class="flex justify-center items-center gap-2 text-6xl md:text-8xl lg:text-9xl font-bold text-[#77B65A] mb-2">
-        <span>S</span><span>I</span><span>T</span><span>C</span>
-        <span>
-          <img src={sitconLogo.src} alt="O" class="h-[5rem] md:h-[7rem] lg:h-[9rem] w-auto translate-y-[-0.5rem]" />
-        </span>
-        <span>N</span>
-      </div>
-      <div class="text-xl md:text-2xl lg:text-3xl text-[#77B65A] tracking-[0.5em] font-medium ml-[0.5em]">
-        學 生 計 算 機 年 會
-      </div>
-    </div>
+	<!-- 內容置中且限寬 -->
+	<div class={`max-w-6xl mx-auto h-full flex flex-col justify-center items-center px-8 text-center ${className}`}>
+		<div class="mb-12">
+			<div class="flex justify-center items-center gap-2 text-6xl md:text-8xl lg:text-9xl font-bold text-[#77B65A] mb-2">
+				<span>S</span><span>I</span><span>T</span><span>C</span>
+				<span>
+					<img src={sitconLogo.src} alt="O" class="h-[5rem] md:h-[7rem] lg:h-[9rem] w-auto translate-y-[-0.5rem]" />
+				</span>
+				<span>N</span>
+			</div>
+			<div class="text-xl md:text-2xl lg:text-3xl text-[#77B65A] tracking-[0.5em] font-medium ml-[0.5em]">
+				學 生 計 算 機 年 會
+			</div>
+		</div>
 
-    <div class="flex justify-center items-center gap-4 text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-700 mb-8 flex-wrap">
-      <span>Hour of Code</span>
-      <div class="inline-flex items-center justify-center min-w-[1.5em] min-h-[1.5em]">
-		  <img id="stone-img" src={stone.src} alt="小石" class="cursor-pointer transition-transform duration-700 ease-in-out" style="transform-origin: center;" />
-      </div>
-      <span class="text-3xl md:text-4xl lg:text-5xl text-gray-600">一小時玩程式</span>
-    </div>
+		<div class="flex justify-center items-center gap-4 text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-700 mb-8 flex-wrap">
+			<span>Hour of Code</span>
 
-    <div class="text-2xl md:text-3xl lg:text-4xl text-gray-600 tracking-widest font-light">
-      Code Your First Hour.
-    </div>
-  </div>
+			<div class="inline-flex items-center justify-center min-w-[1.5em] min-h-[1.5em]">
+				<img
+						id="stone-img"
+						src={stone.src}
+						alt="小石"
+						class="cursor-pointer transition-transform duration-700 ease-in-out"
+						style="transform-origin: center;"
+						/>
+			</div>
+			<span class="text-3xl md:text-4xl lg:text-5xl text-gray-600">一小時玩程式</span>
+		</div>
+
+		<div class="text-2xl md:text-3xl lg:text-4xl text-gray-600 tracking-widest font-light">
+			Code Your First Hour.
+		</div>
+	</div>
 </section>
 
 <script>
-  const stoneImg = document.getElementById('stone-img');
-  let isRotating = false;
-  let currentRotation = 0;
 
-  stoneImg?.addEventListener('click', () => {
-    if (isRotating) return;
-    
-    isRotating = true;
-    currentRotation += 360;
-    stoneImg.style.transform = `rotate(${currentRotation}deg)`;
-    
-    setTimeout(() => {
-      isRotating = false;
-    }, 700);
-  });
+	const img = document.getElementById("stone-img");
+	let angle = 0;
+	img.addEventListener("click", () => {
+		angle += 360;
+		img.style.transform = `rotate(${angle}deg)`;
+	});
+
+	const stoneImg = document.getElementById('stone-img');
+	let isRotating = false;
+	let currentRotation = 0;
+
+	stoneImg?.addEventListener('click', () => {
+		if (isRotating) return;
+
+		isRotating = true;
+		currentRotation += 360;
+		stoneImg.style.transform = `rotate(${currentRotation}deg)`;
+
+		setTimeout(() => {
+			isRotating = false;
+		}, 700);
+	});
 </script>
