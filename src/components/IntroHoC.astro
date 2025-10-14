@@ -101,16 +101,16 @@ import warring from "@assets/warring.svg";
     background-size: auto var(--height);
     background-repeat: repeat-x;
     background-position: center;
-    animation: marquee 9s linear infinite;
+    animation: marquee 8s linear infinite;
     display: block;
   }
 
   @keyframes marquee {
-    from {
+    0% {
       transform: translateX(0);
     }
-    to {
-      transform: translateX(calc(var(--width) * -1));
+    100% {
+      transform: translateX(-50%);
     }
   }
 
