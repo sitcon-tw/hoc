@@ -135,6 +135,30 @@ import sessions from "../data/sessions.json";
     'Taitung': 'east'
   };
 
+  const cityEnToCnMapping: Record<string, string> = {
+    'Taipei City': '台北市',
+    'New Taipei City': '新北市',
+    'Keelung City': '基隆市',
+    'Hsinchu City': '新竹市',
+    'Taoyuan City': '桃園市',
+    'Taichung City': '台中市',
+    'Miaoli County': '苗栗縣',
+    'Changhua County': '彰化縣',
+    'Nantou County': '南投縣',
+    'Yunlin County': '雲林縣',
+    'Tainan City': '台南市',
+    'Kaohsiung City': '高雄市',
+    'Pingtung County': '屏東縣',
+    'Chiayi City': '嘉義市',
+    'Chiayin County': '嘉義縣',
+    'Hualien County': '花蓮縣',
+    'Yilan County': '宜蘭縣',
+    'Taitung County': '台東縣',
+    'Penghu County': '澎湖縣',
+    'Kinmen County': '金門縣',
+    'Lienchiang County': '連江縣',
+  };
+
   // Get user location and auto-select filter
   async function getUserLocation() {
     try {
@@ -148,11 +172,18 @@ import sessions from "../data/sessions.json";
       // Show location indicator
       const locationIndicator = document.getElementById('location-indicator');
       const userLocationSpan = document.getElementById('user-location');
+      let cityCn = '';
 
-      if (locationIndicator && userLocationSpan) {
-        locationIndicator.classList.remove('hidden');
-        userLocationSpan.textContent = `您的位置：${userCity || '台灣'}`;
+      locationIndicator.classList.remove('hidden');
+      for (const [city, region] of Object.entries(cityEnToCnMapping)) {
+        if (userCity.includes(city) || city.includes(userCity)) {
+          cityCn = region;
+          break;
+        }
       }
+
+      console.log(cityCn, userCity);
+      userLocationSpan.textContent = `您的位置：${cityCn || userCity || '台灣'}`;
 
       // Find matching region
       let detectedRegion = '';
