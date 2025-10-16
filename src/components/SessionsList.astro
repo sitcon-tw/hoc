@@ -37,6 +37,11 @@ import sessions from "../data/sessions.json";
           </div>
         ))}
       </div>
+
+      <!-- No sessions message -->
+      <div id="no-sessions-message" class="text-center text-gray-500 text-2xl hidden">
+        選擇的區域目前沒有任何場次
+      </div>
     </div>
   </div>
 </section>
@@ -45,6 +50,32 @@ import sessions from "../data/sessions.json";
   // Region filter functionality
   const filterButtons = document.querySelectorAll('.filter-button');
   const sessionWrappers = document.querySelectorAll('.session-wrapper');
+  const noSessionsMessage = document.getElementById('no-sessions-message');
+
+  function updateSessionsDisplay(selectedRegion: string) {
+    let visibleCount = 0;
+
+    // Filter sessions
+    sessionWrappers.forEach(wrapper => {
+      const sessionRegion = wrapper.getAttribute('data-region');
+
+      if (selectedRegion === 'all' || sessionRegion === selectedRegion) {
+        (wrapper as HTMLElement).style.display = 'block';
+        visibleCount++;
+      } else {
+        (wrapper as HTMLElement).style.display = 'none';
+      }
+    });
+
+    // Show/hide no sessions message
+    if (noSessionsMessage) {
+      if (visibleCount === 0) {
+        noSessionsMessage.classList.remove('hidden');
+      } else {
+        noSessionsMessage.classList.add('hidden');
+      }
+    }
+  }
 
   filterButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -54,16 +85,8 @@ import sessions from "../data/sessions.json";
       filterButtons.forEach(btn => btn.classList.remove('active'));
       button.classList.add('active');
 
-      // Filter sessions
-      sessionWrappers.forEach(wrapper => {
-        const sessionRegion = wrapper.getAttribute('data-region');
-
-        if (selectedRegion === 'all' || sessionRegion === selectedRegion) {
-          (wrapper as HTMLElement).style.display = 'block';
-        } else {
-          (wrapper as HTMLElement).style.display = 'none';
-        }
-      });
+      // Update sessions display
+      updateSessionsDisplay(selectedRegion);
     });
   });
 
@@ -112,6 +135,30 @@ import sessions from "../data/sessions.json";
     'Taitung': 'east'
   };
 
+  const cityEnToCnMapping: Record<string, string> = {
+    'Taipei City': '台北市',
+    'New Taipei City': '新北市',
+    'Keelung City': '基隆市',
+    'Hsinchu City': '新竹市',
+    'Taoyuan City': '桃園市',
+    'Taichung City': '台中市',
+    'Miaoli County': '苗栗縣',
+    'Changhua County': '彰化縣',
+    'Nantou County': '南投縣',
+    'Yunlin County': '雲林縣',
+    'Tainan City': '台南市',
+    'Kaohsiung City': '高雄市',
+    'Pingtung County': '屏東縣',
+    'Chiayi City': '嘉義市',
+    'Chiayin County': '嘉義縣',
+    'Hualien County': '花蓮縣',
+    'Yilan County': '宜蘭縣',
+    'Taitung County': '台東縣',
+    'Penghu County': '澎湖縣',
+    'Kinmen County': '金門縣',
+    'Lienchiang County': '連江縣',
+  };
+
   // Get user location and auto-select filter
   async function getUserLocation() {
     try {
@@ -125,11 +172,18 @@ import sessions from "../data/sessions.json";
       // Show location indicator
       const locationIndicator = document.getElementById('location-indicator');
       const userLocationSpan = document.getElementById('user-location');
+      let cityCn = '';
 
-      if (locationIndicator && userLocationSpan) {
-        locationIndicator.classList.remove('hidden');
-        userLocationSpan.textContent = `您的位置：${userCity || '台灣'}`;
+      locationIndicator.classList.remove('hidden');
+      for (const [city, region] of Object.entries(cityEnToCnMapping)) {
+        if (userCity.includes(city) || city.includes(userCity)) {
+          cityCn = region;
+          break;
+        }
       }
+
+      console.log(cityCn, userCity);
+      userLocationSpan.textContent = `您的位置：${cityCn || userCity || '台灣'}`;
 
       // Find matching region
       let detectedRegion = '';
@@ -146,7 +200,12 @@ import sessions from "../data/sessions.json";
         const targetRegion = detectedRegion === 'east' ? 'all' : detectedRegion;
         const filterButton = document.querySelector(`[data-region="${targetRegion}"]`);
         if (filterButton) {
-          (filterButton as HTMLButtonElement).click();
+          // Update active state
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          filterButton.classList.add('active');
+          
+          // Update sessions display
+          updateSessionsDisplay(targetRegion);
         }
       }
 
