@@ -30,5 +30,37 @@
     "recruitUrl": "NA",
     "registerUrl": "NA",
     "telegramUrl": "https://t.me/SITCON_HoC_Taichung"
+  },
+  {
+    "title": "南部場",
+    "date": "",
+    "time": "",
+    "location": "NA",
+    "address": "NA",
+    "city": "高雄",
+    "region": "south",
+    "description": "課程規劃中，時間為暫定，實際以報名表單為準。",
+    "locationUrl": "NA",
+    "registrationStart": "",
+    "registrationEnd": "2025-11-23T15:59:59.000Z",
+    "recruitUrl": "NA",
+    "registerUrl": "NA",
+    "telegramUrl": "NA"
+  },
+  {
+    "title": "北部場",
+    "date": "",
+    "time": "",
+    "location": "NA",
+    "address": "NA",
+    "city": "NA",
+    "region": "north",
+    "description": "課程規劃中，時間為暫定，實際以報名表單為準。",
+    "locationUrl": "NA",
+    "registrationStart": "",
+    "registrationEnd": "2025-11-23T15:59:59.000Z",
+    "recruitUrl": "NA",
+    "registerUrl": "NA",
+    "telegramUrl": "NA"
   }
 ]
