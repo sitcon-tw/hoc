@@ -1,9 +1,9 @@
 name: Deploy HoC site
 
 on:
-    push:
-        branches: [main]
-    workflow_dispatch:
+  push:
+    branches: [main]
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -12,6 +12,8 @@ jobs:
       contents: write
       pages: write
       id-token: write
+    env:
+      TZ: Asia/Taipei
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4

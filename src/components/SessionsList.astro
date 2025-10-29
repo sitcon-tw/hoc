@@ -4,256 +4,303 @@ import SessionCard from "./SessionCard.astro";
 import sessions from "../data/sessions.json";
 ---
 
-<section class="section relative z-10" id="sessions" style="background-color: #ecf4ff;">
-  <div class="container mx-auto px-6">
-    <div class="max-w-7xl mx-auto">
-      <!-- Section Header -->
-      <div class="text-center mb-16 fade-in">
-        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">活動場次</h2>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto mb-6">
-          選擇適合你的場次，開始你的程式學習之旅
-        </p>
+<section
+    class="section relative z-10"
+    id="sessions"
+    style="background-color: #ecf4ff;"
+>
+    <div class="container mx-auto px-6">
+        <div class="max-w-7xl mx-auto">
+            <!-- Section Header -->
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                    活動場次
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto mb-6">
+                    選擇適合你的場次，開始你的程式學習之旅
+                </p>
 
-        <!-- Region Filter -->
-        <div class="flex justify-center gap-3 mt-8 flex-wrap">
-          <button class="filter-button active" data-region="all">全部</button>
-          <button class="filter-button" data-region="north">北部</button>
-          <button class="filter-button" data-region="central">中部</button>
-          <button class="filter-button" data-region="south">南部</button>
+                <!-- Region Filter -->
+                <div class="flex justify-center gap-3 mt-8 flex-wrap">
+                    <button class="filter-button active" data-region="all"
+                        >全部</button
+                    >
+                    <button class="filter-button" data-region="north"
+                        >北部</button
+                    >
+                    <button class="filter-button" data-region="central"
+                        >中部</button
+                    >
+                    <button class="filter-button" data-region="south"
+                        >南部</button
+                    >
+                </div>
+
+                <!-- Location indicator -->
+                <div
+                    id="location-indicator"
+                    class="mt-6 text-sm text-gray-500 hidden"
+                >
+                    <Icon
+                        name="lucide:map-pin"
+                        class="w-4 h-4 inline-block mr-1"
+                    />
+                    <span id="user-location">正在偵測位置...</span>
+                </div>
+            </div>
+
+            <!-- Sessions List -->
+            <div
+                id="sessions-list"
+                class="flex flex-col gap-6 mb-12 max-w-4xl mx-auto"
+            >
+                {
+                    sessions.map((session) => (
+                        <div
+                            class="session-wrapper"
+                            data-region={session.region}
+                        >
+                            <SessionCard {...session} />
+                        </div>
+                    ))
+                }
+            </div>
+
+            <!-- No sessions message -->
+            <div
+                id="no-sessions-message"
+                class="text-center text-gray-500 text-2xl hidden"
+            >
+                選擇的區域目前沒有任何場次
+            </div>
         </div>
-
-        <!-- Location indicator -->
-        <div id="location-indicator" class="mt-6 text-sm text-gray-500 hidden">
-          <Icon name="lucide:map-pin" class="w-4 h-4 inline-block mr-1" />
-          <span id="user-location">正在偵測位置...</span>
-        </div>
-      </div>
-
-      <!-- Sessions List -->
-      <div id="sessions-list" class="flex flex-col gap-6 mb-12 max-w-4xl mx-auto">
-        {sessions.map(session => (
-          <div class="session-wrapper" data-region={session.region}>
-            <SessionCard {...session} />
-          </div>
-        ))}
-      </div>
-
-      <!-- No sessions message -->
-      <div id="no-sessions-message" class="text-center text-gray-500 text-2xl hidden">
-        選擇的區域目前沒有任何場次
-      </div>
     </div>
-  </div>
 </section>
 
 <script>
-  // Region filter functionality
-  const filterButtons = document.querySelectorAll('.filter-button');
-  const sessionWrappers = document.querySelectorAll('.session-wrapper');
-  const noSessionsMessage = document.getElementById('no-sessions-message');
+    // Region filter functionality
+    const filterButtons = document.querySelectorAll(".filter-button");
+    const sessionWrappers = document.querySelectorAll(".session-wrapper");
+    const noSessionsMessage = document.getElementById("no-sessions-message");
 
-  function updateSessionsDisplay(selectedRegion: string) {
-    let visibleCount = 0;
+    function updateSessionsDisplay(selectedRegion: string) {
+        let visibleCount = 0;
 
-    // Filter sessions
-    sessionWrappers.forEach(wrapper => {
-      const sessionRegion = wrapper.getAttribute('data-region');
+        // Filter sessions
+        sessionWrappers.forEach((wrapper) => {
+            const sessionRegion = wrapper.getAttribute("data-region");
 
-      if (selectedRegion === 'all' || sessionRegion === selectedRegion) {
-        (wrapper as HTMLElement).style.display = 'block';
-        visibleCount++;
-      } else {
-        (wrapper as HTMLElement).style.display = 'none';
-      }
+            if (selectedRegion === "all" || sessionRegion === selectedRegion) {
+                (wrapper as HTMLElement).style.display = "block";
+                visibleCount++;
+            } else {
+                (wrapper as HTMLElement).style.display = "none";
+            }
+        });
+
+        // Show/hide no sessions message
+        if (noSessionsMessage) {
+            if (visibleCount === 0) {
+                noSessionsMessage.classList.remove("hidden");
+            } else {
+                noSessionsMessage.classList.add("hidden");
+            }
+        }
+    }
+
+    filterButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const selectedRegion = button.getAttribute("data-region");
+
+            // Update active state
+            filterButtons.forEach((btn) => btn.classList.remove("active"));
+            button.classList.add("active");
+
+            // Update sessions display
+            if (selectedRegion) {
+                updateSessionsDisplay(selectedRegion);
+            }
+        });
     });
 
-    // Show/hide no sessions message
-    if (noSessionsMessage) {
-      if (visibleCount === 0) {
-        noSessionsMessage.classList.remove('hidden');
-      } else {
-        noSessionsMessage.classList.add('hidden');
-      }
+    // City to region mapping for Taiwan
+    const cityToRegionMapping: Record<string, string> = {
+        // North
+        台北: "north",
+        新北: "north",
+        基隆: "north",
+        新竹: "north",
+        桃園: "north",
+        Taipei: "north",
+        "New Taipei": "north",
+        Keelung: "north",
+        Hsinchu: "north",
+        Taoyuan: "north",
+
+        // Central
+        台中: "central",
+        苗栗: "central",
+        彰化: "central",
+        南投: "central",
+        雲林: "central",
+        Taichung: "central",
+        Miaoli: "central",
+        Changhua: "central",
+        Nantou: "central",
+        Yunlin: "central",
+
+        // South
+        台南: "south",
+        高雄: "south",
+        屏東: "south",
+        嘉義: "south",
+        Tainan: "south",
+        Kaohsiung: "south",
+        Pingtung: "south",
+        Chiayi: "south",
+
+        // East
+        花蓮: "east",
+        宜蘭: "east",
+        台東: "east",
+        Hualien: "east",
+        Yilan: "east",
+        Taitung: "east",
+    };
+
+    const cityEnToCnMapping: Record<string, string> = {
+        "Taipei City": "台北市",
+        "New Taipei City": "新北市",
+        "Keelung City": "基隆市",
+        "Hsinchu City": "新竹市",
+        "Taoyuan City": "桃園市",
+        "Taichung City": "台中市",
+        "Miaoli County": "苗栗縣",
+        "Changhua County": "彰化縣",
+        "Nantou County": "南投縣",
+        "Yunlin County": "雲林縣",
+        "Tainan City": "台南市",
+        "Kaohsiung City": "高雄市",
+        "Pingtung County": "屏東縣",
+        "Chiayi City": "嘉義市",
+        "Chiayin County": "嘉義縣",
+        "Hualien County": "花蓮縣",
+        "Yilan County": "宜蘭縣",
+        "Taitung County": "台東縣",
+        "Penghu County": "澎湖縣",
+        "Kinmen County": "金門縣",
+        "Lienchiang County": "連江縣",
+    };
+
+    // Get user location and auto-select filter
+    async function getUserLocation() {
+        try {
+            // Use ipapi.co - free tier allows 1000 requests/day, no API key needed
+            const response = await fetch("https://ipapi.co/json/");
+            const data = await response.json();
+
+            // Get city name (data.city might be in English, so we'll use region)
+            const userCity = data.city || data.region || "";
+
+            // Show location indicator
+            const locationIndicator =
+                document.getElementById("location-indicator");
+            const userLocationSpan = document.getElementById("user-location");
+
+            if (!locationIndicator || !userLocationSpan) {
+                return;
+            }
+
+            let cityCn = "";
+
+            locationIndicator.classList.remove("hidden");
+            for (const [city, region] of Object.entries(cityEnToCnMapping)) {
+                if (userCity.includes(city) || city.includes(userCity)) {
+                    cityCn = region;
+                    break;
+                }
+            }
+
+            console.log(cityCn, userCity);
+            userLocationSpan.textContent = `您的位置：${cityCn || userCity || "台灣"}`;
+
+            // Find matching region
+            let detectedRegion = "";
+            for (const [city, region] of Object.entries(cityToRegionMapping)) {
+                if (userCity.includes(city) || city.includes(userCity)) {
+                    detectedRegion = region;
+                    break;
+                }
+            }
+
+            // Auto-select the filter button if we detected a region
+            // If detected region is "east", show "all" instead since we don't have east region filter
+            if (detectedRegion) {
+                const targetRegion =
+                    detectedRegion === "east" ? "all" : detectedRegion;
+                const filterButton = document.querySelector(
+                    `[data-region="${targetRegion}"]`,
+                );
+                if (filterButton) {
+                    // Update active state
+                    filterButtons.forEach((btn) =>
+                        btn.classList.remove("active"),
+                    );
+                    filterButton.classList.add("active");
+
+                    // Update sessions display
+                    updateSessionsDisplay(targetRegion);
+                }
+            }
+        } catch (error) {
+            console.log("Unable to detect location:", error);
+            // Fail silently - no location detection is fine
+        }
     }
-  }
 
-  filterButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const selectedRegion = button.getAttribute('data-region');
-
-      // Update active state
-      filterButtons.forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
-
-      // Update sessions display
-      updateSessionsDisplay(selectedRegion);
-    });
-  });
-
-  // City to region mapping for Taiwan
-  const cityToRegionMapping: Record<string, string> = {
-    // North
-    '台北': 'north',
-    '新北': 'north',
-    '基隆': 'north',
-    '新竹': 'north',
-    '桃園': 'north',
-    'Taipei': 'north',
-    'New Taipei': 'north',
-    'Keelung': 'north',
-    'Hsinchu': 'north',
-    'Taoyuan': 'north',
-
-    // Central
-    '台中': 'central',
-    '苗栗': 'central',
-    '彰化': 'central',
-    '南投': 'central',
-    '雲林': 'central',
-    'Taichung': 'central',
-    'Miaoli': 'central',
-    'Changhua': 'central',
-    'Nantou': 'central',
-    'Yunlin': 'central',
-
-    // South
-    '台南': 'south',
-    '高雄': 'south',
-    '屏東': 'south',
-    '嘉義': 'south',
-    'Tainan': 'south',
-    'Kaohsiung': 'south',
-    'Pingtung': 'south',
-    'Chiayi': 'south',
-
-    // East
-    '花蓮': 'east',
-    '宜蘭': 'east',
-    '台東': 'east',
-    'Hualien': 'east',
-    'Yilan': 'east',
-    'Taitung': 'east'
-  };
-
-  const cityEnToCnMapping: Record<string, string> = {
-    'Taipei City': '台北市',
-    'New Taipei City': '新北市',
-    'Keelung City': '基隆市',
-    'Hsinchu City': '新竹市',
-    'Taoyuan City': '桃園市',
-    'Taichung City': '台中市',
-    'Miaoli County': '苗栗縣',
-    'Changhua County': '彰化縣',
-    'Nantou County': '南投縣',
-    'Yunlin County': '雲林縣',
-    'Tainan City': '台南市',
-    'Kaohsiung City': '高雄市',
-    'Pingtung County': '屏東縣',
-    'Chiayi City': '嘉義市',
-    'Chiayin County': '嘉義縣',
-    'Hualien County': '花蓮縣',
-    'Yilan County': '宜蘭縣',
-    'Taitung County': '台東縣',
-    'Penghu County': '澎湖縣',
-    'Kinmen County': '金門縣',
-    'Lienchiang County': '連江縣',
-  };
-
-  // Get user location and auto-select filter
-  async function getUserLocation() {
-    try {
-      // Use ipapi.co - free tier allows 1000 requests/day, no API key needed
-      const response = await fetch('https://ipapi.co/json/');
-      const data = await response.json();
-
-      // Get city name (data.city might be in English, so we'll use region)
-      const userCity = data.city || data.region || '';
-
-      // Show location indicator
-      const locationIndicator = document.getElementById('location-indicator');
-      const userLocationSpan = document.getElementById('user-location');
-      let cityCn = '';
-
-      locationIndicator.classList.remove('hidden');
-      for (const [city, region] of Object.entries(cityEnToCnMapping)) {
-        if (userCity.includes(city) || city.includes(userCity)) {
-          cityCn = region;
-          break;
-        }
-      }
-
-      console.log(cityCn, userCity);
-      userLocationSpan.textContent = `您的位置：${cityCn || userCity || '台灣'}`;
-
-      // Find matching region
-      let detectedRegion = '';
-      for (const [city, region] of Object.entries(cityToRegionMapping)) {
-        if (userCity.includes(city) || city.includes(userCity)) {
-          detectedRegion = region;
-          break;
-        }
-      }
-
-      // Auto-select the filter button if we detected a region
-      // If detected region is "east", show "all" instead since we don't have east region filter
-      if (detectedRegion) {
-        const targetRegion = detectedRegion === 'east' ? 'all' : detectedRegion;
-        const filterButton = document.querySelector(`[data-region="${targetRegion}"]`);
-        if (filterButton) {
-          // Update active state
-          filterButtons.forEach(btn => btn.classList.remove('active'));
-          filterButton.classList.add('active');
-          
-          // Update sessions display
-          updateSessionsDisplay(targetRegion);
-        }
-      }
-
-    } catch (error) {
-      console.log('Unable to detect location:', error);
-      // Fail silently - no location detection is fine
+    // Run on page load
+    if (typeof window !== "undefined") {
+        getUserLocation();
     }
-  }
-
-  // Run on page load
-  if (typeof window !== 'undefined') {
-    getUserLocation();
-  }
 </script>
 
 <style>
-  .fade-in {
-    opacity: 0;
-    transform: translateY(30px);
-  }
+    .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+    }
 
-  .filter-button {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    padding: 10px 24px;
-    border-radius: 24px;
-    border: none;
-    background: rgba(0, 0, 0, 0.05);
-    color: #1d1d1f;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
+    .filter-button {
+        font-family:
+            -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+            "Helvetica Neue", Arial, sans-serif;
+        padding: 10px 24px;
+        border-radius: 24px;
+        border: none;
+        background: rgba(0, 0, 0, 0.05);
+        color: #1d1d1f;
+        font-size: 15px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
 
-  .filter-button:hover {
-    background: rgba(0, 0, 0, 0.08);
-  }
+    .filter-button:hover {
+        background: rgba(0, 0, 0, 0.08);
+    }
 
-  .filter-button.active {
-    background: #06c;
-    color: white;
-  }
+    .filter-button.active {
+        background: #06c;
+        color: white;
+    }
 
-  .filter-button.active:hover {
-    background: #0077ed;
-  }
+    .filter-button.active:hover {
+        background: #0077ed;
+    }
 
-  .session-wrapper {
-    transition: opacity 0.3s ease, transform 0.3s ease;
-  }
+    .session-wrapper {
+        transition:
+            opacity 0.3s ease,
+            transform 0.3s ease;
+    }
 </style>
