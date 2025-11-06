@@ -1,42 +1,47 @@
 name: Fetch Data from Google Sheets
 
 on:
-    schedule:
-        - cron: "0 * * * *"
-    workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch:
 
 jobs:
-    fetch-and-commit:
-        name: Fetch and commit data
-        runs-on: ubuntu-latest
-        permissions:
-            contents: write
+  fetch-and-commit:
+    name: Fetch and commit data
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      TZ: Asia/Taipei
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Fetch data from Google Sheets
+        run: pnpm fetch-data
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add src/data/sessions.json
+          git diff --staged --quiet || git commit -m "chore: update sessions.json from Google Sheets"
+          git push
+
+      - name: Trigger deployment workflow
+        run: gh workflow run gh-pages.yml
         env:
-            TZ: Asia/Taipei
-        steps:
-            - name: Checkout repo
-              uses: actions/checkout@v4
-
-            - name: Setup pnpm
-              uses: pnpm/action-setup@v4
-              with:
-                  version: 8
-
-            - name: Setup Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: 22
-
-            - name: Install dependencies
-              run: pnpm install --no-frozen-lockfile
-
-            - name: Fetch data from Google Sheets
-              run: pnpm fetch-data
-
-            - name: Commit and push changes
-              run: |
-                  git config --local user.email "github-actions[bot]@users.noreply.github.com"
-                  git config --local user.name "github-actions[bot]"
-                  git add src/data/sessions.json
-                  git diff --staged --quiet || git commit -m "chore: update sessions.json from Google Sheets"
-                  git push
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
