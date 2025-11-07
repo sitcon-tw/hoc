@@ -40,8 +40,3 @@ jobs:
           git add src/data/sessions.json
           git diff --staged --quiet || git commit -m "chore: update sessions.json from Google Sheets"
           git push
-
-      - name: Trigger deployment workflow
-        run: gh workflow run gh-pages.yml
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
